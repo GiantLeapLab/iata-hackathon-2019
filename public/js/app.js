@@ -13,7 +13,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: { lat: 52.886, lng: 35.268 },
-        mapTypeId: 'terrain'
+        mapTypeId: 'roadmap'
     });
 
     infoWindow = new google.maps.InfoWindow;
@@ -288,7 +288,7 @@ function f(blob, callback) {
     jQuery.ajax({
         url: "https://api.wit.ai/speech?v=20170307",
         type:"POST",
-        headers: {"Authorization": "Bearer DQPPDWQB5IMTRQFPIJ7QZKNTP4F2MQV4", "Content-Type":"audio/wav"},
+        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
         data: blob,
         processData: false,
         success: function (response) {
