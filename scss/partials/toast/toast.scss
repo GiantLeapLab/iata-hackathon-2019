@@ -1,4 +1,17 @@
 .toast {
-  border: 3px solid red;
+  // border: 3px solid red;
 
+  button {
+    flex-grow: 0;
+    height: auto;
+    min-width: none;
+    width: auto;
+    border: none;
+    border-radius: 0.15rem;
+    
+    margin-left: 2px;
+    box-shadow: none;
+    cursor: pointer;
+    
+  }
 }

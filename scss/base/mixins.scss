@@ -39,7 +39,9 @@
   }
 }
 $z-indexes: (
-        "top-info-row",
+        // "top-info-row",
+        "toast-area--inner",
+        "toast-area--fader",
         "toast-area",
         "theme-container",
         // "controls",
