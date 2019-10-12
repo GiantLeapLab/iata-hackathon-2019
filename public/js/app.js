@@ -58,7 +58,7 @@ $(document).ready(function () {
                         if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                             place.setProperty('selected', true);
                             addCityLabel(place);
-                            addCityWeather(place);
+                            addCityWeather(place.getProperty('name'));
                         }
                     })
                 }
