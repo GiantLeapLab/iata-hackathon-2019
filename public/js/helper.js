@@ -71,7 +71,7 @@ function showUserLocation(){
         var marker = new google.maps.Marker({
             position: userLocation,
             map: map,
-            icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            icon: 'https://www.google.com/mapfiles/arrow.png',
             title: 'You are here'
         });
         boundsUserLocation.extend(userLocation);
