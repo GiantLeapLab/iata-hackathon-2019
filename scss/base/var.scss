@@ -7,9 +7,9 @@ $button-stop--color     : grey;
 $button-default--color     : rgba(255,255,255, 0.7);
 
 $toast-area--width      : 300px;
-$map-area--width        : calc(100% + 300px);   // ! depends on toast area width
+// $map-area--width        : calc(100% + 300px);   // ! depends on toast area width
 // $map-area--width     : calc(100% - 300px);   // ! depends on toast area width
-$map-area--offset       : -150px; 
+// $map-area--offset       : -150px; 
 
 // $control-bar--width  : calc(100% - 300px);
 $control-bar--width     : $toast-area--width; 

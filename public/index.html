@@ -34,63 +34,61 @@
     </select>
 </div>
 
-
+<!-- ! use .active class for controls-bar visible -->
+<div class="control-bar active">
+        <!-- <h1>Simple Recorder.js demo</h1> -->
+    
+        <div id="controls">
+            <button class="control control-rec" id="recordButton">Say</button>
+            <!-- <button id="pauseButton" disabled>Pause</button> -->
+            <button class="control control-stop" id="stopButton" disabled>Send</button>
+        </div>
+        <!-- <div id="formats">Format: start recording to see sample rate</div> -->
+        <!-- <h3>Recordings</h3> -->
+        <!-- <ol id="recordingsList"></ol> -->
+        <!-- <div id="results"></div> -->
+</div>
 
 <div class="theme-container">
     <div class="theme-container--wrapper">
     
-    <div class="theme-container--inner">
+        <div class="theme-container--inner">
 
-            
-            <div class="map-contaner">
-                <div id="map"></div>
-            </div>
-
-
-             <!-- ! use .active class for controls-bar visible -->
-            <div class="control-bar active">
-                    <!-- <h1>Simple Recorder.js demo</h1> -->
-                
-                    <div id="controls">
-                        <button class="control control-rec" id="recordButton">Say</button>
-                        <!-- <button id="pauseButton" disabled>Pause</button> -->
-                        <button class="control control-stop" id="stopButton" disabled>Send</button>
+                <div class="map-contaner">
+                        <div id="map"></div>
                     </div>
-                    <!-- <div id="formats">Format: start recording to see sample rate</div> -->
-                    <!-- <h3>Recordings</h3> -->
-                    <!-- <ol id="recordingsList"></ol> -->
-                    <!-- <div id="results"></div> -->
-            </div>
 
-            <!-- Toast area start  -->
-            <div class="toast-area" aria-live="polite" aria-atomic="true">
-                    
-                    <div class="toast-area--wrapper">
-                    <div class="toast-area--fader"></div>
-                    <div class="toast-area--inner">
+                <!-- Toast area start  -->
+                <!-- ! use .active class for toast-area visible -->
+                <div class="toast-area active" aria-live="polite" aria-atomic="true">
+                        
+                        <div class="toast-area--wrapper">
+                        <div class="toast-area--fader"></div>
+                        <div class="toast-area--inner">
 
-                            
-                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
-                                <div class="toast-body">
-                                    <b>You:</b>
-                                Heads up, toasts will stack automatically 12
-                                </div>
-                            </div>
-
-                            
-                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
-                                <div class="toast-body">
+                                
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                    <div class="toast-body">
                                         <b>You:</b>
-                                Heads up, toasts will stack automatically 12
+                                    Heads up, toasts will stack automatically 12
+                                    </div>
                                 </div>
-                            </div>
 
+                                
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                    <div class="toast-body">
+                                            <b>You:</b>
+                                    Heads up, toasts will stack automatically 12
+                                    </div>
+                                </div>
+
+                        </div>
+                        </div>
                     </div>
-                    </div>
-                  </div>
-                
-    
-    </div>
+                    
+        
+        </div>
+    </div>      
 </div>
 
 

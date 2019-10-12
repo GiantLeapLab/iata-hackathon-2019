@@ -1,8 +1,11 @@
 .map-contaner {
-    width: $map-area--width;
+    // width: $map-area--width;
     height: 100vh;
-    float: left;
-    margin-left: $map-area--offset;
+    // float: left;
+    // margin-left: $map-area--offset;
+
+    display: flex;
+    flex-grow: 1;
 }
 
 #map {

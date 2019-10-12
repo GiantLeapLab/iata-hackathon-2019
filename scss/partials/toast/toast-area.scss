@@ -1,11 +1,23 @@
 .toast-area {
-  position: absolute; 
+  // position: absolute; 
   z-index: z('toast-area');
-  width: $toast-area--width;
+  // width: $toast-area--width;
+  width: 0;
   height: 100vh;
 
-  top: 0;
-  right: 0;
+  overflow: hidden;
+  flex-grow: 0;
+  display: flex;
+
+  transition: all 0.2s;
+
+  &.active {
+    width: $toast-area--width;
+  }
+
+
+  // top: 0;
+  // right: 0;
 
   .toast-area--wrapper {
     position: relative; 
