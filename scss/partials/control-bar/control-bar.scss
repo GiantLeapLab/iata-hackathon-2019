@@ -1,18 +1,11 @@
 .control-bar {
     z-index: z('control-bar');
-
     position: fixed;
-   //  bottom: 0;
     bottom: -100px;
-    right: 50%;
-   //  width: $toast-area--width;
-      width: 200px;
-      height: 50px;
-   //  background-color:   $main-color;
+    right: calc(50% + 50px);
+    width: 200px;
+    height: 50px;
     padding: 10px;
-    margin-left: -100px;
-
-   transition: all 0.5s;
 
     &.active {
       transform: translate(0px, -100px);
@@ -28,13 +21,11 @@
       padding: 0 15px;
 
       &.control-rec {
-         // background-color:   $button-rec--color;
          background-color:   $button-default--color;
 
       }
       
       &.control-stop {
-         // background-color:   $button-stop--color;
          background-color:   $button-default--color;
       }
 
