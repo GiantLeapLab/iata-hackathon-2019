@@ -15,7 +15,7 @@ class SitaApi_Weather
         $startDate = !empty($params['startDate']) ? $params['startDate'] : null;
 
         if (!empty($airportId) && !empty($startDate)) {
-            $response = $client->request('GET', 'https://weather-qa.api.aero/weather/v1/forecast/'
+            $response = $client->request('GET', 'https://weather-qa.api.aero/weather/v1/combined/'
                 . $airportId
                 . '?temperatureScale=C&duration=7&lengthUnit=K',
                 [
