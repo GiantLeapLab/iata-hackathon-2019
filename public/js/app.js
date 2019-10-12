@@ -15,6 +15,8 @@ var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
 var flightPath;
+var featuresCountries;
+var featuresPlaces;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -88,7 +90,7 @@ $(document).ready(function () {
     });
 
     /* Load JSON countried to DATA layer */
-    var featuresCountries = map.data.addGeoJson(countries, { idPropertyName: "ADMIN" });
+    featuresCountries = map.data.addGeoJson(countries, { idPropertyName: "ADMIN" });
 
     /* Get all countries names */
     featuresCountries.forEach(function (feature) {
@@ -99,7 +101,7 @@ $(document).ready(function () {
     })
 
     /* Load JSON ccities to DATA layer */
-    var featuresPlaces = map.data.addGeoJson(places);
+    featuresPlaces = map.data.addGeoJson(places);
 
     map.data.setStyle(function (feature) {
         /* Random color */
@@ -163,14 +165,14 @@ $(document).ready(function () {
     });
 
     initBounds();
-    //showVisitedCountries(featuresCountries, featuresPlaces);
+    //showVisitedCountries();
     showUserLocation();
     /*setTimeout(() => {
-        makeVisitedCountriesUnwanted(featuresCountries);
+        makeVisitedCountriesUnwanted();
     }, 4000);
 
     setTimeout(() => {
-        addCountryToVisited(featuresCountries, featuresPlaces);
+        addCountryToVisited();
     }, 6000);*/
 
 

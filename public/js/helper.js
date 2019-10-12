@@ -1,4 +1,4 @@
-function makeVisitedCountriesUnwanted(featuresCountries) {
+function makeVisitedCountriesUnwanted() {
     featuresCountries.forEach(function (item) {
         if (item.getProperty('visited')) {
             item.setProperty('unwanted', true);
@@ -6,15 +6,15 @@ function makeVisitedCountriesUnwanted(featuresCountries) {
     })
 }
 
-function addCountryToVisited(featuresCountries, featuresPlaces){
+function addCountryToVisited(){
     Object.keys(forgottenVisitedCountry).forEach(function(key){
         visitedCountries[key] = forgottenVisitedCountry[key]
     })
-    showVisitedCountries(featuresCountries, featuresPlaces);
-    makeVisitedCountriesUnwanted(featuresCountries);
+    showVisitedCountries();
+    makeVisitedCountriesUnwanted();
 }
 
-function showVisitedCountries(featuresCountries, featuresPlaces) {
+function showVisitedCountries() {
     featuresCountries.forEach(function (item) {
         if (Object.keys(visitedCountries).indexOf(item.getProperty('ADMIN')) !== -1) {
             item.getGeometry().forEachLatLng(function (latLng) {
@@ -141,7 +141,7 @@ function showUserLocation(){
             map.fitBounds(boundsVisited.union(boundsUserLocation));
         }else{
             map.setCenter(userLocation);
-            map.setZoom(5);
+            map.setZoom(2);
         }
     }, function () {
         handleLocationError(true, infoWindow, map.getCenter());
