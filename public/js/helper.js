@@ -131,6 +131,7 @@ function addPolyline(fromLatLng, toLatLng) {
         });
     }
     flightPath.setPath(flightPlanCoordinates);
+    flightPath.setMap(null);
     flightPath.setMap(map);
 }
 
