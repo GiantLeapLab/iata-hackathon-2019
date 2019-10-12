@@ -150,9 +150,9 @@ $(document).ready(function () {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
-    /*var recordButton = document.getElementById("recordButton");
+    var recordButton = document.getElementById("recordButton");
     var stopButton = document.getElementById("stopButton");
-
+/*
 //add events to those 2 buttons
     recordButton.addEventListener("click", startRecording);
     stopButton.addEventListener("click", stopRecording);*/
@@ -196,8 +196,14 @@ function startRecording() {
        Disable the record button until we get a success or fail from getUserMedia()
    */
 
-    recordButton.disabled = true;
-    stopButton.disabled = false;
+    /*recordButton.disabled = true;
+    stopButton.disabled = false;*/
+
+    //jQuery('#recordButton').attr('disabled', 'disabled');
+    //jQuery('#stopButton').removeAttr('disabled');
+
+    jQuery('#recordButton').prop('disabled', true);
+    jQuery('#stopButton').prop('disabled', false);
 
     /*
         We're using the standard promise based getUserMedia()
@@ -216,7 +222,7 @@ function startRecording() {
         audioContext = new AudioContext();
 
         //update the format
-        document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+        //document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
 
         /*  assign to gumStream for later use  */
         gumStream = stream;
@@ -239,7 +245,7 @@ function startRecording() {
         //enable the record button if getUserMedia() fails
         recordButton.disabled = false;
         stopButton.disabled = true;
-
+        console.log(err)
     });
 }
 
@@ -247,8 +253,11 @@ function stopRecording() {
     console.log("stopButton clicked");
 
     //disable the stop button, enable the record too allow for new recordings
-    stopButton.disabled = true;
-    recordButton.disabled = false;
+    /*stopButton.disabled = true;
+    recordButton.disabled = false;*/
+    jQuery('#stopButton').attr('disabled', 'disabled');
+    jQuery('#recordButton').removeAttr('disabled');
+
     //tell the recorder to stop the recording
     rec.stop();
 
