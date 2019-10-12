@@ -1,7 +1,7 @@
 .toast-area {
   position: absolute; 
   z-index: z('toast-area');
-  width: 300px;
+  width: $toast-area-width;
   height: 100vh;
 
   top: 0;

@@ -1,3 +1,12 @@
+.map-contaner {
+    width: $map-area-width;
+    height: 100vh;
+    float: left;
+}
+
 #map {
     // border: 10px solid red;
+    width: 100%;
+    height: 100%;
+    
 }
