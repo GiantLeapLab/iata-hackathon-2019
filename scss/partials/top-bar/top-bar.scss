@@ -1,0 +1,22 @@
+.top-bar {
+    z-index: z('top-bar');
+    position: fixed;
+    top: -50px;
+    right: 0;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    
+   transition: all 0.5s;
+
+    &.active {
+      transform: translate(0px, 50px);
+    }
+
+    background-color: $top-bar--bg;
+
+    button {
+      background-color: $top-bar-btn--bg;
+    }
+
+}
