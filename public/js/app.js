@@ -150,9 +150,9 @@ $(document).ready(function () {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
-    /*var recordButton = document.getElementById("recordButton");
+    var recordButton = document.getElementById("recordButton");
     var stopButton = document.getElementById("stopButton");
-
+/*
 //add events to those 2 buttons
     recordButton.addEventListener("click", startRecording);
     stopButton.addEventListener("click", stopRecording);*/
