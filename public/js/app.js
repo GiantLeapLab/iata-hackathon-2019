@@ -190,6 +190,11 @@ $(document).ready(function () {
         SunnyBot.listen()
     })
 
+    /*$('#controls').on('keydown', '#recordButton', function(){
+
+        SunnyBot.listen()
+    })*/
+
 });
 var AnswerActions = {
     j: jQuery,
@@ -257,12 +262,13 @@ var AnswerActions = {
                 SunnyBot.say(this.text)
                 makeVisitedCountriesUnwanted()
                 var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
-                selectedCities.forEach(function (city) {
-                    //console.log(city, TripData.dateFrom)
-                    addCityWeather(city, TripData.dateFrom)
-                })
 
                 setTimeout(function () {
+                    showSelectedCountries()
+                    selectedCities.forEach(function (city) {
+                        //console.log(city, TripData.dateFrom)
+                        addCityWeather(city, TripData.dateFrom)
+                    })
                     SunnyBot.say(text2)
                 }, 700)
             }
@@ -278,8 +284,6 @@ var AnswerActions = {
                     makeVisitedCountriesUnwanted()
                     SunnyBot.say(text2)
                 }, 300)
-
-
             }
         },
         {
@@ -288,12 +292,9 @@ var AnswerActions = {
             text: 'Sure, here is some info from TripAdvisor',
             execute: function (params) {
                 SunnyBot.say(this.text)
-
                 setTimeout(function () {
-
-                }, 300)
-
-
+                    AnswerActions.j('.popup--antalya').show()
+                }, 200)
             }
         }
     ],
