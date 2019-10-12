@@ -28,24 +28,21 @@ class SunExpress_Api {
         $fromCacheResult = self::getFromCache();
 
         if (!empty($fromCacheResult)) {
-            return new JsonResponse($fromCacheResult);
+            $res = json_decode($fromCacheResult, JSON_OBJECT_AS_ARRAY);
+        } else {
+            $res = self::basicOneWaySearch($client, $depCode, $arrCode, $depDate, $arrDate);
+
+            if (!is_writable(self::CACHE_DIR)) {
+                throw new \Exception("Cache directory is not writable");
+            }
+
+            file_put_contents(self::CACHE_DIR . '/response.json', json_encode($res));
         }
 
-        ob_start();
-        self::basicOneWaySearch($client, $depCode, $arrCode, $depDate, $arrDate);
-        $res = ob_get_clean();
-
-        if (!is_writable(self::CACHE_DIR)) {
-            throw new \Exception("Cache directory is not writable");
-        }
-
-        file_put_contents(self::CACHE_DIR . '/response.json', $res);
-
-        echo $res;
+        include(TPL_PATH . '/flights_list.php');
     }
 
     protected static function basicOneWaySearch(Client $client, $depCode, $arrCode, $depDate, $arrDate) {
-
 
         $response = $client->request('POST', self::$url,
             [
@@ -188,7 +185,7 @@ XML
 
        });
 
-        return new JsonResponse($data, $response->getStatusCode());
+        return $data;
     }
 
     public static function orderCreate(Client $client) {

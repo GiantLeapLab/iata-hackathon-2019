@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 use Api\SitaApi_Airport;
 
 define('ROOT_PATH', dirname(__FILE__) . '/..');
+define('TPL_PATH', ROOT_PATH . '/templates');
 
 $actions = [
     'weather' => [
