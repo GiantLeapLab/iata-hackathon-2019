@@ -118,6 +118,7 @@ $(document).ready(function () {
             var fillColor = '#3cad4c';
             var strokeColor = '#2c870c';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var iconUrl = "img/suggested-city.png";
             var scaledSize = new google.maps.Size(32, 32)
         }
 
