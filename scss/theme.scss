@@ -1,10 +1,14 @@
+// Giant Leap Lab
+
 // Base
+
 @import "base/var";
 @import "base/fonts";
 @import "base/mixins";
 
 
 // Common style
+
 @import "common";
 
 
@@ -19,3 +23,4 @@
 @import "partials/top-bar/top-bar";
 @import "partials/button/button";
 @import "partials/trip/trip";
+@import "partials/popup/popup";

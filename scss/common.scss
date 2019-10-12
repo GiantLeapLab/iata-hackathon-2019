@@ -23,6 +23,11 @@ body {
         
     }
 
+    .start-page {
+        position: relative;
+        z-index: z('start-page');
+    }
+
     .start-page--wrapper {
         max-width: 800px;
         margin: auto;
