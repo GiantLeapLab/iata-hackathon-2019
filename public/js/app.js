@@ -163,15 +163,15 @@ $(document).ready(function () {
     });
 
     initBounds();
-    showVisitedCountries(featuresCountries, featuresPlaces);
+    //showVisitedCountries(featuresCountries, featuresPlaces);
     showUserLocation();
-    setTimeout(() => {
+    /*setTimeout(() => {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
     setTimeout(() => {
         addCountryToVisited(featuresCountries, featuresPlaces);
-    }, 6000);
+    }, 6000);*/
 
 
 

@@ -137,7 +137,12 @@ function showUserLocation(){
             title: 'You are here'
         });
         boundsUserLocation.extend(userLocation);
-        map.fitBounds(boundsVisited.union(boundsUserLocation));
+        if(!boundsVisited.isEmpty()){
+            map.fitBounds(boundsVisited.union(boundsUserLocation));
+        }else{
+            map.setCenter(userLocation);
+            map.setZoom(5);
+        }
     }, function () {
         handleLocationError(true, infoWindow, map.getCenter());
     });
