@@ -90,23 +90,27 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
-                var color = 'gray';
+                var fillColor = '#949493';
+                var strokeColor = '#676767';
             } else {
-                var color = 'green';
+                var fillColor = 'green';
+                var strokeColor = 'green';
             }
             var iconUrl = "http://maps.google.com/mapfiles/kml/pal2/icon13.png";
         } else {
-            var color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+            //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+            var fillColor = '#fabe3f';
+            var strokeColor = '#d49c25';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
         }
 
         return /** @type {!google.maps.Data.StyleOptions} */({
             title: feature.getProperty('name'),
-            fillOpacity: 0.45,
-            fillColor: color,
-            strokeColor: color,
+            fillOpacity: 0.85,
+            fillColor: fillColor,
+            strokeColor: strokeColor,
             strokeWeight: 3,
-            strokeOpacity: 0.8,
+            strokeOpacity: 1,
             animation: google.maps.Animation.DROP,
             icon: {
                 url: iconUrl
