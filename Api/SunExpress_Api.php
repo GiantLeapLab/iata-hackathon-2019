@@ -2,6 +2,7 @@
 
 namespace Api;
 
+use common\Helper;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -146,13 +147,11 @@ XML
 
                            $flightData[$i][] = [
                                'depCode' => $depCode,
-                               'depDate' => $depDate,
-                               'depTime' => $depTime,
+                               'depTime' => Helper::formatDateTime($depDate, $depTime),
                                'arrCode' => $arrCode,
-                               'arrDate' => $arrDate,
-                               'arrTime' => $arrTime,
+                               'arrTime' => Helper::formatDateTime($arrDate, $arrTime),
                                'classOfService' => $classOfService,
-                               'duration' => $duration
+                               'duration' => Helper::formatDuration($duration)
                            ];
                        }
 

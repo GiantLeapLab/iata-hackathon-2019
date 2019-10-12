@@ -18,7 +18,7 @@ class JsonResponse
         if (is_string($arrayBody)) {
             $res = $arrayBody;
         } elseif (is_iterable($arrayBody)) {
-            $res = json_encode($arrayBody);
+            $res = json_encode($arrayBody, JSON_PRETTY_PRINT);
         } else {
             $res = json_encode(['error' => 'Wrong response body type!']);
         }
