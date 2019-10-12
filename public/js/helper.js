@@ -15,7 +15,11 @@ function showVisitedCountries(featuresCountries, featuresPlaces) {
             item.setProperty('visited', true);
             featuresPlaces.forEach(function (place) {
                 if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
-                    place.setProperty('visited', true);
+                    if(Object.keys(visitedCountries[item.getProperty('ADMIN')]).indexOf(place.getProperty('name')) !== -1){
+                        place.setProperty('visited', true);
+                    }else{
+                        place.setProperty('selected', true);
+                    }
                 }
             })
         }
@@ -209,8 +213,8 @@ function getCityInfo(city){
 
 function showPastTrips(){
     Object.keys(visitedCountries).forEach(function (country) {
-        visitedCountries[country].forEach(function(cityData){
-            $('#past-trips').append('<div class="item"><div class="date">' + cityData.date + '</div><div class="city">' + country + ', ' + cityData.city + '</div></div>');
+        Object.keys(visitedCountries[country]).forEach(function(city){
+            $('#past-trips').append('<div class="item"><div class="date">' + visitedCountries[country][city] + '</div><div class="city">' + country + ', ' + city + '</div></div>');
         })
     });
 }
