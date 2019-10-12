@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>FRA</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="js/data/countries.short.js"></script>
+    <script src="js/data/ne_50m_populated_places_simple.js"></script>
+    <script src="js/data/airports.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+<div id="map"></div>
+<div class="sidebar">
+    <select id="countrySelect" multiple size="30">
+    </select>
+</div>
+
+<hr>
+<h1>Simple Recorder.js demo</h1>
+<div id="controls">
+    <button id="recordButton">Record</button>
+    <button id="pauseButton" disabled>Pause</button>
+    <button id="stopButton" disabled>Stop</button>
+</div>
+<div id="formats">Format: start recording to see sample rate</div>
+<h3>Recordings</h3>
+<ol id="recordingsList"></ol>
+<div id="results"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&language=en">
+</script>
+<script src="js/maplabel.js"></script>
+
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
+</body>
+
+</html>
