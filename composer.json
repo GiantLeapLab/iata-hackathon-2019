@@ -12,7 +12,8 @@
     },
     "autoload": {
         "classmap": [
-            "Api"
+            "Api",
+            "common"
         ]
     }
 }
