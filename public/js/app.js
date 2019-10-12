@@ -4,7 +4,7 @@ var bounds = [];
 var boundsVisited = [];
 var boundsUserLocation = [];
 var infoWindow;
-var visitedCountries = ['Ukraine', 'Moldova', 'Poland', 'Belarus'];
+var visitedCountries = { 'Ukraine': [{ 'city': 'Odessa', 'date': 'June 2, 2019 - June 10, 2019' }, { 'city': 'Kharkiv', 'date': 'June 2, 2019 - June 10, 2019' }], 'Poland': [{ 'city': 'Warsaw', 'date': 'June 2, 2019 - June 10, 2019' }, { 'city': 'Gdansk', 'date': 'June 2, 2019 - June 10, 2019' }], 'Belarus': [{ 'city': 'Brest', 'date': 'June 2, 2019 - June 10, 2019' }, { 'city': 'Minsk', 'date': 'June 2, 2019 - June 10, 2019' }] };
 var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
@@ -18,12 +18,18 @@ function initMap() {
     });
 
     infoWindow = new google.maps.InfoWindow;
-    google.maps.event.addListener(infoWindow,'closeclick',function(){
+    google.maps.event.addListener(infoWindow, 'closeclick', function () {
         clearRoute()
-     });
+    });
 }
 
 $(document).ready(function () {
+
+    $('#start-button').click(function () {
+        $(this).parent('div').hide();
+    })
+
+    showPastTrips();
 
     $('#countrySelect').change(function () {
 
@@ -50,7 +56,7 @@ $(document).ready(function () {
                         }
                     })
                 }
-            // Hide unselected countries
+                // Hide unselected countries
             } else {
                 item.setProperty('selected', false);
                 // Hide cities
@@ -67,9 +73,9 @@ $(document).ready(function () {
         // Fit bounds
         if (!bounds.isEmpty()) {
             map.fitBounds(bounds.union(boundsUserLocation));
-        } else if(!boundsVisited.isEmpty()){
+        } else if (!boundsVisited.isEmpty()) {
             map.fitBounds(boundsVisited.union(boundsUserLocation));
-        }else{
+        } else {
             map.setCenter(new google.maps.LatLng(50, 10));
             map.setZoom(5)
         }
@@ -136,12 +142,12 @@ $(document).ready(function () {
                 pixelOffset: new google.maps.Size(0, -30)
             });
             infoWindow.open(map);
-            if(cityInfo.hasAirports){
+            if (cityInfo.hasAirports) {
                 buildRouteToUser(event.feature.getGeometry().get());
-            }else{
+            } else {
                 clearRoute();
             }
-        }else{
+        } else {
             clearRoute();
         }
     });
@@ -155,16 +161,16 @@ $(document).ready(function () {
 
     var recordButton = document.getElementById("recordButton");
     var stopButton = document.getElementById("stopButton");
-/*
-//add events to those 2 buttons
-    recordButton.addEventListener("click", startRecording);
-    stopButton.addEventListener("click", stopRecording);*/
+    /*
+    //add events to those 2 buttons
+        recordButton.addEventListener("click", startRecording);
+        stopButton.addEventListener("click", stopRecording);*/
 
-    $('#controls').on('click', '#stopButton', function(){
+    $('#controls').on('click', '#stopButton', function () {
         //console.log('stop record click')
         stopRecording()
     })
-    $('#controls').on('click', '#recordButton', function(){
+    $('#controls').on('click', '#recordButton', function () {
         //console.log('start record click')
         startRecording()
     })
@@ -193,7 +199,7 @@ function startRecording() {
         https://addpipe.com/blog/audio-constraints-getusermedia/
     */
 
-    var constraints = { audio: true, video:false }
+    var constraints = { audio: true, video: false }
 
     /*
        Disable the record button until we get a success or fail from getUserMedia()
@@ -213,7 +219,7 @@ function startRecording() {
         https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
     */
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
 
         /*
@@ -237,14 +243,14 @@ function startRecording() {
             Create the Recorder object and configure to record mono sound (1 channel)
             Recording 2 channels  will double the file size
         */
-        rec = new Recorder(input,{numChannels:1})
+        rec = new Recorder(input, { numChannels: 1 })
 
         //start the recording process
         rec.record()
 
         console.log("Recording started");
 
-    }).catch(function(err) {
+    }).catch(function (err) {
         //enable the record button if getUserMedia() fails
         recordButton.disabled = false;
         stopButton.disabled = true;
@@ -280,8 +286,8 @@ function createDownloadLink(blob) {
 function f(blob, callback) {
     jQuery.ajax({
         url: "https://api.wit.ai/speech?v=20170307",
-        type:"POST",
-        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
+        type: "POST",
+        headers: { "Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type": "audio/wav" },
         data: blob,
         processData: false,
         success: function (response) {
