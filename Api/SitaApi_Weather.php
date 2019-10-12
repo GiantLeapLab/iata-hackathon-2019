@@ -10,7 +10,10 @@ class SitaApi_Weather
 
     public static function getWeather(Client $client, $params)
     {
-        list($airportId, $startDate) = $params;
+
+        $airportId = !empty($params['airportId']) ? $params['airportId'] : null;
+        $startDate = !empty($params['startDate']) ? $params['startDate'] : null;
+
         if (!empty($airportId) && !empty($startDate)) {
             $response = $client->request('GET', 'https://weather-qa.api.aero/weather/v1/forecast/'
                 . $airportId

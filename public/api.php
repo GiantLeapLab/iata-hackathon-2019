@@ -24,13 +24,16 @@ if(!empty($actionName) && in_array($actionName, array_keys($actions))) {
     $className = '\Api\\' . $action['class'];
     if (class_exists($className) && method_exists($className, $action['method'])) {
         unset($_REQUEST['action']);
-        $params = array_map(function($param){
-            $parts = explode('_', $param);
+        $params = [];
+        foreach ($_REQUEST as $key=>$value) {
+            $parts = explode('_', $key);
             if (count($parts) == 2) {
-                return $parts[0] . ucfirst($parts[1]);
+                $params[$parts[0] . ucfirst($parts[1])] = $value;
+            } else {
+                $params[$key] = $value;
             }
-            return $param;
-        }, $_REQUEST);
+        }
+
         $className::{$action['method']}($client, $params);
     }
 }
