@@ -225,6 +225,15 @@ var AnswerActions = {
 
             }
         },
+        {
+            index: 3,
+            entity: 'proximity',
+            text: 'Understood. Let me see...',
+            execute: function (params) {
+                var text2 = 'According to my records, here are the countries and cities you visited before. Should I exclude them from the search?'
+
+            }
+        }
     ],
     defaultAnswer: {
         index: 100,
