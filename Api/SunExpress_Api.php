@@ -8,6 +8,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class SunExpress_Api {
 
+    const CACHE_DIR = ROOT_PATH . '/cache';
+
     public static $userName = 'HKTHONUSR';
     public static $password = 'Hack@thonuser123';
     public static $url = 'https://iflyrestest.ibsgen.com:6013/iRes_NdcRes_WS/services/NdcResService172SOAPPort?wsdl';
@@ -17,11 +19,33 @@ class SunExpress_Api {
     public static $cardHolderName = 'v3uNb9+FkDmirVsRgiLF5g==%~~`%~~~~~~~%^**(%$#%bDS+MHp5qKwtg80/Nf5JNrRXGyAuwH6SVAh9VJL4BR5qoq1h2URk2SVh2N8nLDBeV9FP/WReR+l4zzxzOlmcrXUeocDEMguce5rWXI1/msazqFmqxMlgseoPVm7iStFJ6h1bLJtk2gvHPAnDxlzQ9+UDERj0XQw/nTahLkMbxr52NwrkM3fjgRh/+2cNws2RW3Vsub3Fv9nRRADjLkDJfoLG+h7RDhbqV0CYQ9ZIkvCDo43Hs6bjmHdKD4MZoCtPo06qGx71h+CrZEGYe7/WVRE257A/V8+FhNmt0zPlmS3cNw8So3Kbzr4/HlInAx63ZIWni8aTkQmG3+ZOrP7FWw==';
     public static $expiration = '5c1NTE8bR1YLrMXWSSH0wA==%~~`%~~~~~~~%^**(%$#%Jn7/bfhgzMSH0tlv5AisOVzTen/K8NxOBY99w8hXWUu0kkGhs7zmpdnUECOd4VCNmv9FQWojQIoFLu3C3YKSxE5WZaIdy6UtarB1k20XyjdZjNwT4yiK+iQBzLqv9XRgMgRkrF78gN0IQvXrR8p8pcwKamJhqkyaG4L0ahAPoyKM1lTSVY/buu9gM9PW8tPudR8QqKt3Ow8imcekGiiPrpediq5RxYI44A3zPQf5CPFVwH70FjZ4dstd361m4dIPWCaEZLB0ZEDqgcoXK7d1oLrkV7/JSknR+10AK7PNl84OneiQZpN88WEUnYaxNJ8IWC2DiliJdRrnhdne2BTwjg==';
 
-    public static function basicOneWaySearch(Client $client, $params) {
+    public static function basicOneWaySearchCached(Client $client, $params) {
         $depCode = !empty($params['depCode']) ? $params['depCode'] : null;
         $arrCode = !empty($params['arrCode']) ? $params['arrCode'] : null;
         $depDate = !empty($params['depDate']) ? $params['depDate'] : null;
         $arrDate = !empty($params['arrDate']) ? $params['arrDate'] : null;
+
+        $fromCacheResult = self::getFromCache();
+
+        if (!empty($fromCacheResult)) {
+            return new JsonResponse($fromCacheResult);
+        }
+
+        ob_start();
+        self::basicOneWaySearch($client, $depCode, $arrCode, $depDate, $arrDate);
+        $res = ob_get_clean();
+
+        if (!is_writable(self::CACHE_DIR)) {
+            throw new \Exception("Cache directory is not writable");
+        }
+
+        file_put_contents(self::CACHE_DIR . '/response.json', $res);
+
+        echo $res;
+    }
+
+    protected static function basicOneWaySearch(Client $client, $depCode, $arrCode, $depDate, $arrDate) {
+
 
         $response = $client->request('POST', self::$url,
             [
@@ -220,5 +244,16 @@ EOL
 
     }
 
+    protected static function getFromCache() {
+        if (!is_writable(self::CACHE_DIR)) {
+            throw new \Exception("Cache directory is not writable");
+        }
+
+        if (file_exists(self::CACHE_DIR . '/response.json')) {
+            return file_get_contents(self::CACHE_DIR . '/response.json');
+        }
+
+        return null;
+    }
 
 }
