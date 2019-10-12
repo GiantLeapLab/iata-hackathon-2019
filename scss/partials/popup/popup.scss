@@ -1,0 +1,13 @@
+.popup--theme {
+    background-color: #fff;
+    z-index: z('popup--theme'); 
+
+    width: 600px;
+    height: 400px;
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -200px;
+}

@@ -39,15 +39,15 @@
   }
 }
 $z-indexes: (
-        "top-bar",
-        "sidebar",
-        "control-bar",
-        "toast-area--inner",
-        "toast-area--fader",
-        "toast-area", 
-        "theme-container",
-        // "map",
-        "one",
+  "start-page",
+  "top-bar", 
+  "popup--theme",
+  "sidebar",
+  "control-bar",
+  "toast-area--inner",
+  "toast-area--fader",
+  "toast-area",
+  "theme-container"
 );
 
 //.site-header {
