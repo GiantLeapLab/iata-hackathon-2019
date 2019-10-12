@@ -7,6 +7,7 @@ var infoWindow;
 var visitedCountries = ['Ukraine', 'Moldova', 'Poland', 'Belarus'];
 var visitedColor = 'gray';
 var labels = [];
+var weatherMarkers = [];
 var flightPath;
 
 function initMap() {
@@ -45,6 +46,7 @@ $(document).ready(function () {
                         if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                             place.setProperty('selected', true);
                             addCityLabel(place);
+                            addCityWeather(place);
                         }
                     })
                 }
@@ -56,6 +58,7 @@ $(document).ready(function () {
                     if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                         place.setProperty('selected', false);
                         removeCityLabel(place);
+                        removeCityWeather(place);
                     }
                 })
             }
@@ -90,8 +93,8 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
-                var fillColor = '#e2e2e2';
-                var strokeColor = '#a7a7a7';
+                var fillColor = '#7eb300';
+                var strokeColor = '#537700';
             } else {
                 var fillColor = 'green';
                 var strokeColor = 'green';
@@ -99,8 +102,8 @@ $(document).ready(function () {
             var iconUrl = "http://maps.google.com/mapfiles/kml/pal2/icon13.png";
         } else {
             //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
-            var fillColor = '#fabe3f';
-            var strokeColor = '#d49c25';
+            var fillColor = '#3cad4c';
+            var strokeColor = '#2c870c';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
         }
 
