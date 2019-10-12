@@ -3,23 +3,34 @@
 
     position: fixed;
     bottom: 0;
-    right: 0;
-    width: $toast-area--width;
-    background-color:   $main-color;
+    right: 50%;
+   //  width: $toast-area--width;
+      width: 200px;
+      height: 50px;
+   //  background-color:   $main-color;
     padding: 10px;
-    
-   //   h1 {
-   //      font-scize: 14px;
-   //   }
+    margin-left: -100px;
+
 
 
    .control  {
+      margin: 0 10px;
+      font-size: 12px;
+      color: black;
+      font-weight: normal;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 15px;
+
       &.control-rec {
-         background-color:   $button-rec--color;
+         // background-color:   $button-rec--color;
+         background-color:   $button-default--color;
+
       }
       
       &.control-stop {
-         background-color:   $button-stop--color;
+         // background-color:   $button-stop--color;
+         background-color:   $button-default--color;
       }
 
    }
