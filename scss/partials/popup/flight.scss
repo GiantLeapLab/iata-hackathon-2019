@@ -1,0 +1,59 @@
+.flight {
+    background-color: #F2F2F2;
+    z-index: z('popup--theme'); 
+
+    height: 80px;
+    margin: 8px 0;
+
+    display: flex;
+
+
+     .f-col-1 {
+         width: 45px;
+         display: flex;
+        flex-grow: 0;
+
+        .count {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #EBA911;
+            font-size: 20px;
+            float: left;
+            color: #fff;
+        }
+     }
+
+     .f-col-2 {
+        display: flex;
+        flex-grow: 1;
+
+        flex-direction: column;
+
+       .price {
+            font-size: 20px;
+            color: #50AF0B;
+       }
+     }
+
+     .f-col-3 {
+         width: 125px;
+         padding-left: 18px;
+
+         display: flex;
+         flex-grow: 0;
+         padding-top: 8px;
+         
+         .logo {
+             &.se {
+                 width: 90px;
+                 height: 40px;
+                 background-image: url('../img/se.png');
+                 background-size: contain;
+                 background-repeat: no-repeat;
+                 background-position: 0 0;
+             }
+         }
+     }
+}

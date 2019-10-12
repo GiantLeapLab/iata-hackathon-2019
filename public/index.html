@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="fontawesome/5.0.8/css/fontawesome-all.min.css">
 
     <link rel="stylesheet" href="bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="custom-scrollbar/jquery.mCustomScrollbar.min.css">
 
     <!-- ! theme.css main theme template style -->
     <!-- ! Use theme.css with gulp only -->
@@ -21,7 +22,7 @@
     <script src="js/data/ne_50m_populated_places_simple.js"></script>
     <script src="js/data/airports.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
-    
+        
     <script src="js/helper.js"></script>
     <script src="js/app.js"></script>
     
@@ -49,7 +50,7 @@
 <div class="top-bar active">
     <div class="date-block">
             <span>Dates:</span>
-            <div class="date date--first-part">
+            <div class="date date--first-part" id="trip-dates">
                 Oct 16, 2019 - Oct 23, 2019
             </div>
             <div class="date date--separator">
@@ -69,7 +70,7 @@
     </div>
 </div>
 
-<div class="sidebar">
+<div class="sidebar ui-widget-content">
     <select id="countrySelect" multiple size="30">
     </select>
 </div>
@@ -89,7 +90,47 @@
         <!-- <div id="results"></div> -->
 </div>
 
-<div class="popup--theme"></div>
+<div class="popup--theme">
+    <div class="popup-title">
+            Flights to Split, Croatia
+    </div>
+
+    <div class="flights">
+            
+        <div class="flight">
+            <div class="f-col-1">
+                <span class="count">1</span>
+            </div>
+
+            <div class="f-col-2">
+                <div class="price">
+                        €145
+                </div>
+
+                <div class="to"><i class="fa fa-arrow-right"></i>  Oct 16, 2019, 01:30 pm — 2:45 pm, 1h 15m</div>
+                <div class="from"><i class="fa fa-arrow-left"></i> Oct 16, 2019, 01:30 pm — 2:45 pm, 1h 15m</div>
+            </div>
+
+            <div class="f-col-3">
+                <div class="logo se"></div>
+            </div>
+         
+        </div>
+        <div class="flight">
+
+        </div>
+        <div class="flight">
+
+        </div>
+        <div class="flight">
+
+        </div>
+        <div class="flight">
+
+        </div>
+    </div>
+
+</div>
 
 <div class="theme-container">
     <div class="theme-container--wrapper">
@@ -106,7 +147,7 @@
                         
                         <div class="toast-area--wrapper">
                         <div class="toast-area--fader"></div>
-                        <div class="toast-area--inner">
+                        <div class="toast-area--inner" id="sunny-message-board">
 
                                 <!-- ! Use "user" or "bot" class -->
                             <div class="toast user" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
@@ -146,8 +187,17 @@
     </div>      
 </div>
 
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.min.css">
+<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
 
 <script src="bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>    
+<script src="custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>    
+
+<script src="bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="js/moment.min.js"></script>
+
 <script src="js/theme.js"></script> 
 
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&language=en&key=AIzaSyDorcZqW2o9Vam-wM32QlnVxNTjx4r53p8">
