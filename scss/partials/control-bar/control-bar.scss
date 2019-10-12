@@ -2,7 +2,8 @@
     z-index: z('control-bar');
 
     position: fixed;
-    bottom: 0;
+   //  bottom: 0;
+    bottom: -100px;
     right: 50%;
    //  width: $toast-area--width;
       width: 200px;
@@ -11,7 +12,11 @@
     padding: 10px;
     margin-left: -100px;
 
+   transition: all 0.5s;
 
+    &.active {
+      transform: translate(0px, -100px);
+    }
 
    .control  {
       margin: 0 10px;
