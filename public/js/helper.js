@@ -9,6 +9,9 @@ function makeVisitedCountriesUnwanted(featuresCountries) {
 function showVisitedCountries(featuresCountries, featuresPlaces) {
     featuresCountries.forEach(function (item) {
         if (visitedCountries.indexOf(item.getProperty('ADMIN')) !== -1) {
+            item.getGeometry().forEachLatLng(function (latLng) {
+                boundsVisited.extend(latLng);
+            })
             item.setProperty('visited', true);
             featuresPlaces.forEach(function (place) {
                 if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
@@ -45,19 +48,21 @@ function clearCityLabels() {
     labels = [];
 }
 
+function initBounds(){
+    bounds = new google.maps.LatLngBounds();
+    boundsUserLocation = new google.maps.LatLngBounds();
+    boundsVisited = new google.maps.LatLngBounds();
+}
+
 function addBound(latLng) {
     bounds.extend(latLng);
 }
 
 function clearBounds() {
     bounds = new google.maps.LatLngBounds();
-    if(userLocation){
-        addBound(userLocation);
-    }
 }
 
 function showUserLocation(){
-    clearBounds();
     navigator.geolocation.getCurrentPosition(function (position) {
         userLocation = {
             lat: position.coords.latitude,
@@ -69,8 +74,8 @@ function showUserLocation(){
             icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             title: 'You are here'
         });
-        addBound(userLocation);
-
+        boundsUserLocation.extend(userLocation);
+        map.fitBounds(boundsVisited.union(boundsUserLocation));
     }, function () {
         handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -78,7 +83,7 @@ function showUserLocation(){
 
 function buildRouteToUser(fromLatLng) {
     if (userLocation) {
-            addPolyline(fromLatLng, userLocation);
+        addPolyline(fromLatLng, userLocation);
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());

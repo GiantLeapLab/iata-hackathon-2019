@@ -1,6 +1,8 @@
 var map;
 var userLocation;
 var bounds = [];
+var boundsVisited = [];
+var boundsUserLocation = [];
 var infoWindow;
 var visitedCountries = ['Ukraine', 'Moldova', 'Poland', 'Belarus'];
 var visitedColor = 'gray';
@@ -15,6 +17,9 @@ function initMap() {
     });
 
     infoWindow = new google.maps.InfoWindow;
+    google.maps.event.addListener(infoWindow,'closeclick',function(){
+        clearRoute()
+     });
 }
 
 $(document).ready(function () {
@@ -58,8 +63,10 @@ $(document).ready(function () {
 
         // Fit bounds
         if (!bounds.isEmpty()) {
-            map.fitBounds(bounds);
-        } else {
+            map.fitBounds(bounds.union(boundsUserLocation));
+        } else if(!boundsVisited.isEmpty()){
+            map.fitBounds(boundsVisited.union(boundsUserLocation));
+        }else{
             map.setCenter(new google.maps.LatLng(50, 10));
             map.setZoom(5)
         }
@@ -131,6 +138,7 @@ $(document).ready(function () {
         }
     });
 
+    initBounds();
     showVisitedCountries(featuresCountries, featuresPlaces);
     showUserLocation();
     setTimeout(() => {
