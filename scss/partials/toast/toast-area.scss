@@ -22,13 +22,14 @@
 
     .toast-area--inner {
       position: absolute; 
-      min-height: 200px;
-      top: 0; 
+      min-height: 100px;
+      bottom: 0; 
       right: 0;
       z-index: z('toast-area--inner');
       padding-top: 10px;
       padding-right: 10px;
       padding-left: 10px;
+      padding-bottom: 10px;
     }
   } 
 
