@@ -58,7 +58,7 @@ $(document).ready(function () {
                         if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                             place.setProperty('selected', true);
                             addCityLabel(place);
-                            addCityWeather(place);
+                            addCityWeather(place.getProperty('name'));
                         }
                     })
                 }
@@ -118,6 +118,7 @@ $(document).ready(function () {
             var fillColor = '#3cad4c';
             var strokeColor = '#2c870c';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var iconUrl = "img/suggested-city.png";
             var scaledSize = new google.maps.Size(32, 32)
         }
 
@@ -184,43 +185,64 @@ $(document).ready(function () {
 });
 var AnswerActions = {
     j: jQuery,
-    defaultAnswerIndex: 0,
+    defaultAnswerIndex: 100,
+    prevAnswer: 'default',
     answers: [
         {
-            index: 0,
+            index: 1,
+            entity: 'hi',
+            text: 'Hi',
+            execute: function (params) {
+                //silence is golden
+            }
+        },
+        {
+            index: 2,
+            entity: "where_to_go",
+            text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
+            execute: function (params) {
+                console.log(params)
+
+                SunnyBot.say(this.text)
+                var dateFrom = false
+                var dateTo = false
+
+                if ( params.datetime && params.datetime.length > 0) {
+                    dateFrom = params.datetime[0].value
+                    var durationDay = params.duration && params.duration.length > 0 ? params.duration.value : 5
+                    dateTo = moment(dateFrom).add(durationDay, 'days')
+                }
+
+                if (dateFrom != false && dateTo != false) {
+                    dateFrom = '2019-10-14'
+                    dateTo = '2019-10-18'
+                }
+                TripData.dateFrom = moment(dateFrom).format("YYYY-MM-DD")
+                TripData.dateTo = moment(dateTo).format("YYYY-MM-DD")
+                AnswerActions.j('.date--first-part').text(moment(dateFrom).format("MMM D, YYYY") + ' - ' + moment(dateTo).format("MMM D, YYYY"))
+
+            }
+        },
+
+        {
+            index: 100,
             entity: 'default',
             text: 'I am not sure that I understood your question',
             execute: function () {
                 SunnyBot.say(this.text)
             }
         },
-        {
-            index: 1,
-            entity: 'where_to_go',
-            text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
-            execute: function (params) {
-                console.log(params)
-                //trip-dates
-                SunnyBot.say(this.text)
-                if (params.datetime && params.datetime && params.datetime.length > 0) {
-                    var tripDates = params.datetime[0]
-                    TripData.dateFrom = tripDates.from.value
-                    TripData.dateTo = tripDates.to.value
-                    AnswerActions.j('.date--first-part').text(moment(tripDates.from.value).format("MMM D, YYYY") + ' - ' + moment(tripDates.to.value).format("MMM D, YYYY"))
-                    console.log(TripData)
-                }
-            }
-        }
     ],
     findAnswer: function(entities){
-        //console.log(entities)
+        console.log(entities)
         var result = this.answers[this.defaultAnswerIndex]
         this.answers.forEach(function (answer) {
-            if (entities.indexOf(answer.entity)) {
-                //console.log('find answer', answer)
+            if (entities.indexOf(answer.entity) != -1) {
+                console.log('find answer', answer)
                 result = Object.assign({}, answer)
             }
         })
+        this.prevAnswer = result.index != this.defaultAnswerIndex ? result.entity : 'default'
 
         return result
     }

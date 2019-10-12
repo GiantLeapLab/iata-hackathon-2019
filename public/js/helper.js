@@ -60,31 +60,36 @@ function clearCityLabels() {
     labels = [];
 }
 
-function addCityWeather(place){
-    // Temporary random weather image START
-    var number = Math.floor(Math.random() * 32) + 1;
-    if(number == 9 || number == 10){
-        number = 11;
-    }
-    var image = 'https://uds-static.api.aero/weather/icon/sm/' + number.toString().padStart(2, '0') + '.png';
-    // Temporary random weather image END
+function addCityWeather(city, date = '2019-10-14'){
 
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(place.getProperty('latitude'), place.getProperty('longitude')),
-        map: map,
-        label: {
-            color:'#FF0000',
-            fontWeight: 'bold',
-            text: '+22'
-        },
-        icon: {
-            labelOrigin: new google.maps.Point(-13, 15),
-            scaledSize: new google.maps.Size(30, 30),
-            anchor: new google.maps.Point(-20, 60),
-            url: image
-        },
-    });
-    weatherMarkers[place.getProperty('geonameid')] = marker;
+    var airport = getAirportByCity(city);
+    if(airport){
+        $.ajax({
+            url: "api.php?action=weather&airport_id=" + airport.iata + "&start_date=" + date,
+            
+        })
+            .done(function( data ) {
+                console.log(data);
+                if(data.success){
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(airport.latitude, airport.longitude),
+                        map: map,
+                        label: {
+                            color:'#FF0000',
+                            fontWeight: 'bold',
+                            text: data.forecast.highTemperatureValue > 0 ? '+' + data.forecast.highTemperatureValue : data.forecast.highTemperatureValue
+                        },
+                        icon: {
+                            labelOrigin: new google.maps.Point(-10, 15),
+                            scaledSize: new google.maps.Size(30, 30),
+                            anchor: new google.maps.Point(-15, 60),
+                            url: 'https://' + data.forecast.iconUrl
+                        },
+                    });
+                    weatherMarkers[place.getProperty('geonameid')] = marker;
+                }
+            });
+    }
 }
 
 function removeCityWeather(place) {
@@ -202,6 +207,16 @@ function getAirportsByCity(city){
     return result;
 }
 
+function getAirportByCity(city){
+    var result = '';
+    Object.keys(airports).forEach(function (key) {
+        if(airports[key].city == city && !result){
+            result = airports[key];
+        }
+    })
+    return result;
+}
+
 function getCityInfo(city){
     var result = {
         'title': city,
@@ -216,7 +231,6 @@ function getCityInfo(city){
     }
 
     return result;
-
 }
 
 function showPastTrips(){
