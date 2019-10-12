@@ -2,18 +2,16 @@
     background-color: #fff;
     z-index: z('popup--theme'); 
 
-    // width: 550px;
-    width: 560px;
-    // width: calc(100vw - 600px);
-    height: 450px;
     position: fixed;
 
     top: 50%;
     left: 50%;
+
+    width: 560px;
+    height: 450px;
     margin-left: -440px;
     margin-top: -225px;
 
-    // border: 1px solid #707070;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     border-radius: 10px;
 
@@ -21,11 +19,20 @@
     padding-right: 24px;
     padding-bottom: 24px;
 
-    .popup-title {
-        height: 70px;
-        line-height: 70px;
-        font-size: 20px;
+    &.popup--flight {
+        width: 560px;
+        height: 450px;
+        margin-left: -440px;
+        margin-top: -225px;
+
+        .flight-title {
+            height: 70px;
+            line-height: 70px;
+            font-size: 20px;
+        }
     }
+
+    
 
     .flights {
         height: 350px;
