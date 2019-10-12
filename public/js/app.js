@@ -222,6 +222,7 @@ var AnswerActions = {
                 TripData.dateFrom = moment(dateFrom).format("YYYY-MM-DD")
                 TripData.dateTo = moment(dateTo).format("YYYY-MM-DD")
                 AnswerActions.j('.date--first-part').text(moment(dateFrom).format("MMM D, YYYY") + ' - ' + moment(dateTo).format("MMM D, YYYY"))
+                AnswerActions.j('.top-bar').addClass('active')
 
             }
         },
@@ -231,12 +232,16 @@ var AnswerActions = {
             text: 'Understood. Let me see...',
             execute: function (params) {
                 map.setZoom(5)
-                SunnyBot.say(this.text)
+                var text = this.text
+                setTimeout(function () {
+                    SunnyBot.say(text)
+                }, 500)
                 var text2 = 'According to my records, here are the countries and cities you visited before. Should I exclude them from the search?'
-                showVisitedCountries()
-                SunnyBot.say(text2)
+                setTimeout(function () {
+                    showVisitedCountries()
+                    SunnyBot.say(text2)
+                }, 1500)
             }
-
         }
     ],
     defaultAnswer: {
