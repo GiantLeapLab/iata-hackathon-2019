@@ -242,6 +242,38 @@ var AnswerActions = {
                     SunnyBot.say(text2)
                 }, 1500)
             }
+        },
+        {
+            index: 4,
+            entity: 'yes_no',
+            text: 'Ok!',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+                makeVisitedCountriesUnwanted()
+                var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
+
+                    /*['']
+                addCityWeather(city, TripData.dateFrom)*/
+
+                setTimeout(function () {
+                    SunnyBot.say(text2)
+                }, 700)
+            }
+        },
+        {
+            index: 5,
+            entity: 'location_visited',
+            text: 'Oh, sorry.',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+                var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
+                setTimeout(function () {
+                    makeVisitedCountriesUnwanted()
+                    SunnyBot.say(text2)
+                }, 300)
+
+
+            }
         }
     ],
     defaultAnswer: {
