@@ -26,25 +26,30 @@
       flex-grow: 1;
 
       span {
-         font-size: 16px;
+         font-size: 24px;
          color: grey;
-         margin-right: 5px;
+         margin-right: 10px;
       }
 
       .date {
-         font-size: 18px;
+         font-size: 26px;
          color: black;
          font-weight: bold;
          display: inline-block;
 
-         .date--first-part {
-         
+         &.date--first-part {
+            
          }
-         .date--second-part {
+
+         &.date--separator {
+          padding: 0 5px;  
+         }
+          
+         &.date--second-part {
             
          }
       }
-   }
+   } 
    
    .button-block {
       display: flex;
@@ -53,11 +58,11 @@
       .btn {
          background-color: $top-bar-btn--bg;
          font-weight: bold;
-         font-size: 16px;
+         font-size: 24px;
          display: inline-block;
-         height: 30px;
+         height: 40px;
          position: relative;
-         top: 10px;
+         top: 5px;
          color: white;
          line-height: 16px;
 
