@@ -150,12 +150,22 @@ $(document).ready(function () {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
-    var recordButton = document.getElementById("recordButton");
+    /*var recordButton = document.getElementById("recordButton");
     var stopButton = document.getElementById("stopButton");
 
 //add events to those 2 buttons
     recordButton.addEventListener("click", startRecording);
-    stopButton.addEventListener("click", stopRecording);
+    stopButton.addEventListener("click", stopRecording);*/
+
+    $('#controls').on('click', '#stopButton', function(){
+        //console.log('stop record click')
+        stopRecording()
+    })
+    $('#controls').on('click', '#recordButton', function(){
+        //console.log('start record click')
+        startRecording()
+    })
+
 });
 
 /* RECORD PART */
