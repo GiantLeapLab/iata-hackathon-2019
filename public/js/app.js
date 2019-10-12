@@ -255,9 +255,10 @@ var AnswerActions = {
                 SunnyBot.say(this.text)
                 makeVisitedCountriesUnwanted()
                 var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
-
-                    /*['']
-                addCityWeather(city, TripData.dateFrom)*/
+                selectedCities.forEach(function (city) {
+                    //console.log(city, TripData.dateFrom)
+                    addCityWeather(city, TripData.dateFrom)
+                })
 
                 setTimeout(function () {
                     SunnyBot.say(text2)
