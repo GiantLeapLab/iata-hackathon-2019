@@ -279,6 +279,20 @@ var AnswerActions = {
 
 
             }
+        },
+        {
+            index: 6,
+            entity: 'location_info',
+            text: 'Sure, here is some info from TripAdvisor',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+
+                setTimeout(function () {
+
+                }, 300)
+
+
+            }
         }
     ],
     defaultAnswer: {
