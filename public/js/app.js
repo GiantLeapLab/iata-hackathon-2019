@@ -94,7 +94,7 @@ $(document).ready(function () {
             } else {
                 var color = 'green';
             }
-            var iconUrl = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+            var iconUrl = "http://maps.google.com/mapfiles/kml/pal2/icon13.png";
         } else {
             var color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
@@ -107,6 +107,7 @@ $(document).ready(function () {
             strokeColor: color,
             strokeWeight: 3,
             strokeOpacity: 0.8,
+            animation: google.maps.Animation.DROP,
             icon: {
                 url: iconUrl
             },
