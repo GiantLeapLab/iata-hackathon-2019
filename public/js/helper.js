@@ -8,7 +8,7 @@ function makeVisitedCountriesUnwanted(featuresCountries) {
 
 function showVisitedCountries(featuresCountries, featuresPlaces) {
     featuresCountries.forEach(function (item) {
-        if (visitedCountries.indexOf(item.getProperty('ADMIN')) !== -1) {
+        if (Object.keys(visitedCountries).indexOf(item.getProperty('ADMIN')) !== -1) {
             item.getGeometry().forEachLatLng(function (latLng) {
                 boundsVisited.extend(latLng);
             })
@@ -48,6 +48,48 @@ function clearCityLabels() {
     labels = [];
 }
 
+function addCityWeather(place){
+    // Temporary random weather image START
+    var number = Math.floor(Math.random() * 32) + 1;
+    if(number == 9 || number == 10){
+        number = 11;
+    }
+    var image = 'https://uds-static.api.aero/weather/icon/sm/' + number.toString().padStart(2, '0') + '.png';
+    // Temporary random weather image END
+
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(place.getProperty('latitude'), place.getProperty('longitude')),
+        map: map,
+        label: {
+            color:'#FF0000',
+            fontWeight: 'bold',
+            text: '+22'
+        },
+        icon: {
+            labelOrigin: new google.maps.Point(-13, 15),
+            scaledSize: new google.maps.Size(30, 30),
+            anchor: new google.maps.Point(-20, 60),
+            url: image
+        },
+    });
+    weatherMarkers[place.getProperty('geonameid')] = marker;
+}
+
+function removeCityWeather(place) {
+    if (typeof weatherMarkers[place.getProperty('geonameid')] !== 'undefined') {
+        weatherMarkers[place.getProperty('geonameid')].setMap(null);
+        delete weatherMarkers[place.getProperty('geonameid')];
+    }
+}
+
+function clearCityWeather() {
+    weatherMarkers.forEach(function (marker) {
+        marker.setMap(null);
+        delete marker;
+    })
+    weatherMarkers = [];
+}
+
 function initBounds(){
     bounds = new google.maps.LatLngBounds();
     boundsUserLocation = new google.maps.LatLngBounds();
@@ -71,7 +113,10 @@ function showUserLocation(){
         var marker = new google.maps.Marker({
             position: userLocation,
             map: map,
-            icon: 'https://www.google.com/mapfiles/arrow.png',
+            icon: {
+                //scaledSize: new google.maps.Size(32, 32),
+                url: 'https://www.google.com/mapfiles/arrow.png'
+              },
             title: 'You are here'
         });
         boundsUserLocation.extend(userLocation);
@@ -160,4 +205,12 @@ function getCityInfo(city){
 
     return result;
 
+}
+
+function showPastTrips(){
+    Object.keys(visitedCountries).forEach(function (country) {
+        visitedCountries[country].forEach(function(cityData){
+            $('#past-trips').append('<div class="item"><div class="date">' + cityData.date + '</div><div class="city">' + country + ', ' + cityData.city + '</div></div>');
+        })
+    });
 }

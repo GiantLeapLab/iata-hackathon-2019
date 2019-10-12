@@ -7,7 +7,8 @@
   overflow: visible;
 
   &.bot {
-    background-color: $toast-color--bot ;
+    background-color: $toast--bot--bg ;
+    color: $toast--bot--color ;
     margin-left: 0;
 
     &:before {
@@ -19,7 +20,7 @@
       width: 10px;
       height: 8px;
       transform: rotate(45deg);
-      background-color: $toast-color--bot ;
+      background-color: $toast--bot--bg;
       border-bottom: 1px solid rgba(0,0,0,.1);
       border-left: 1px solid rgba(0,0,0,.2);
       box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
@@ -29,7 +30,8 @@
   }
 
   &.user {
-    background-color: $toast-color--user;
+    background-color: $toast--user--bg;
+    color: $toast--user--color;
     margin-left: 10%;
 
     &:before {
@@ -41,7 +43,7 @@
       width: 10px;
       height: 8px;
       transform: rotate(45deg);
-      background-color: $toast-color--user;
+      background-color: $toast--user--bg;
 
       border-top: 1px solid rgba(0,0,0,.1);
       border-right: 1px solid rgba(0,0,0,.2);
