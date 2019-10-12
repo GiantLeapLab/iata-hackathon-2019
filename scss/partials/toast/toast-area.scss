@@ -1,0 +1,8 @@
+.toast-area {
+  position: relative; min-height: 200px;
+
+
+  .toast-area--inner {
+    position: absolute; bottom: 0; right: 0;
+  } 
+}
