@@ -34,7 +34,7 @@ $(document).ready(function () {
     $('#start-button').click(function () {
         $(this).closest('.start-page').hide();
     })
-
+    $('#start-button').click()
     showPastTrips();
 
     $('#countrySelect').change(function () {
@@ -175,21 +175,108 @@ $(document).ready(function () {
 
 
     $('#controls').on('click', '#stopButton', function(){
-        RecordSpeech.stopRecording(WitTool.sendSpeech.bind(WitTool))
+        SunnyBot.processRequest()
     })
     $('#controls').on('click', '#recordButton', function(){
         SunnyBot.listen()
     })
 
 });
+var AnswerActions = {
+    j: jQuery,
+    defaultAnswerIndex: 0,
+    answers: [
+        {
+            index: 0,
+            entity: 'default',
+            text: 'I am not sure that I understood your question',
+            execute: function () {
+                SunnyBot.say(this.text)
+            }
+        },
+        {
+            index: 1,
+            entity: 'where_to_go',
+            text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
+            execute: function (params) {
+                console.log(params)
+                //trip-dates
+                SunnyBot.say(this.text)
+                if (params.datetime && params.datetime && params.datetime.length > 0) {
+                    var tripDates = params.datetime[0]
+                    TripData.dateFrom = tripDates.from.value
+                    TripData.dateTo = tripDates.to.value
+                    AnswerActions.j('.date--first-part').text(moment(tripDates.from.value).format("MMM D, YYYY") + ' - ' + moment(tripDates.to.value).format("MMM D, YYYY"))
+                    console.log(TripData)
+                }
+            }
+        }
+    ],
+    findAnswer: function(entities){
+        //console.log(entities)
+        var result = this.answers[this.defaultAnswerIndex]
+        this.answers.forEach(function (answer) {
+            if (entities.indexOf(answer.entity)) {
+                //console.log('find answer', answer)
+                result = Object.assign({}, answer)
+            }
+        })
 
+        return result
+    }
+}
+var TripData = {
+    dateFrom: '',
+    dateTo: ''
+}
 var SunnyBot = {
+    j: jQuery,
+    toastContainer: '#sunny-message-board',
+
     listen: function(){
         RecordSpeech.startRecording()
+        //AnswerActions.findAnswer(['where_to_go','datetime']).execute({default:'ffffffff'})
     },
-    say: function () {
 
+    processRequest: function () {
+        //do request to WIT
+        WitTool.speechResponseCallback = this.parseWITResponse.bind(this)
+        RecordSpeech.stopRecording(WitTool.sendSpeech.bind(WitTool))
+    },
+    parseWITResponse: function(response) {
+        console.log('sunny parse start')
+        console.log(response)
+        if (response._text) {
+            this.displayToast(response._text, true)
+            AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
+        }
+    },
+
+    say: function (message) {
+        this.displayToast(message, false)
+        this.voiceAnswer(message)
+    },
+    displayToast: function(message, isUser) {
+        isUser = isUser?isUser:false
+        var template = '<div class="toast #isUser#" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">\n' +
+            '                                <div class="toast-body">\n' +
+            '                                    <b>#name#:</b>\n' +
+            '                                    #message#\n' +
+            '                                </div>\n' +
+            '                            </div>'
+
+        this.j(this.toastContainer).append(
+            template
+                .replace('#isUser#', isUser?'user':'bot')
+                .replace('#name#', isUser?'You':'Sunny')
+                .replace('#message#', message)
+        )
+        this.j('.toast').toast('show')
+    },
+    voiceAnswer: function (message) {
+        console.log('there should be ajax request to the IBM API to transform text into speech')
     }
+
 }
 
 /* RECORD PART */
@@ -273,7 +360,6 @@ var WitTool = {
     apiKey: "HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL",
     sendSpeech:function (speechBlob) {
         var that = this
-
         jQuery.ajax({
             url: this.speechURL,
             type:"POST",
@@ -281,7 +367,7 @@ var WitTool = {
             data: speechBlob,
             processData: false,
             success: function (response) {
-                console.log(response)
+                //console.log(response)
                 if (typeof that.speechResponseCallback == "function") {
                     that.speechResponseCallback(response)
                 }
@@ -291,17 +377,3 @@ var WitTool = {
     speechResponseCallback: function (response) { console.log('WIT Speech response received', response) }
 }
 
-function f(blob) {
-    jQuery.ajax({
-        url: "https://api.wit.ai/speech?v=20170307",
-        type:"POST",
-        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
-        data: blob,
-        processData: false,
-        success: function (response) {
-            if (typeof callback == "function") {
-                callback(response)
-            }
-        }
-    })
-}
