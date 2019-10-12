@@ -127,7 +127,7 @@ XML
 
                $flightData = [];
                $itemNode->filterXPath('descendant-or-self::ns2:FareDetail/ns2:FareComponent/ns2:SegmentRefs')
-                   ->each(function (Crawler $segmentRefNode) use ($dataListData, &$flightData) {
+                   ->each(function (Crawler $segmentRefNode, $i) use ($dataListData, &$flightData) {
 
                        $segmentsIdString = $segmentRefNode->text();
                        $segmentsIdList = explode(' ', $segmentsIdString);
@@ -144,7 +144,7 @@ XML
                            $classOfService = $flightDates->filterXPath('descendant-or-self::ns2:ClassOfService/ns2:MarketingName')->text();
                            $duration = $flightDates->filterXPath('descendant-or-self::ns2:FlightDetail/ns2:FlightDuration/ns2:Value')->text();
 
-                           $flightData[] = [
+                           $flightData[$i][] = [
                                'depCode' => $depCode,
                                'depDate' => $depDate,
                                'depTime' => $depTime,
