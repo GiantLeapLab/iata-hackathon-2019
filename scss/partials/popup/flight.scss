@@ -2,7 +2,7 @@
     background-color: #F2F2F2;
     z-index: z('popup--theme'); 
 
-    height: 80px;
+    height: 88px;
     margin: 8px 0;
 
     display: flex;
@@ -28,12 +28,13 @@
      .f-col-2 {
         display: flex;
         flex-grow: 1;
-
+        font-size: 15px;
         flex-direction: column;
 
        .price {
             font-size: 20px;
             color: #50AF0B;
+            margin-bottom: 6px;
        }
      }
 
@@ -42,18 +43,28 @@
          padding-left: 18px;
 
          display: flex;
+         flex-direction: column;
          flex-grow: 0;
+
          padding-top: 8px;
          
          .logo {
+             margin-bottom: 5px;
+             
              &.se {
-                 width: 90px;
-                 height: 40px;
+                 width: 94px;
+                 height: 22px;
                  background-image: url('../img/se.png');
                  background-size: contain;
                  background-repeat: no-repeat;
                  background-position: 0 0;
              }
+         }
+
+         .stoppes {
+             font-size: 15px;
+             color: #3667C1;
+             padding-left: 7px;
          }
      }
 }
