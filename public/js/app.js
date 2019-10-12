@@ -90,8 +90,8 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
-                var fillColor = '#949493';
-                var strokeColor = '#676767';
+                var fillColor = '#e2e2e2';
+                var strokeColor = '#a7a7a7';
             } else {
                 var fillColor = 'green';
                 var strokeColor = 'green';
@@ -109,7 +109,7 @@ $(document).ready(function () {
             fillOpacity: 0.85,
             fillColor: fillColor,
             strokeColor: strokeColor,
-            strokeWeight: 3,
+            strokeWeight: 1,
             strokeOpacity: 1,
             animation: google.maps.Animation.DROP,
             icon: {
