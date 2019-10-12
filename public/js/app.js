@@ -70,7 +70,7 @@ $(document).ready(function () {
                     if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                         place.setProperty('selected', false);
                         removeCityLabel(place);
-                        removeCityWeather(place);
+                        removeCityWeather(place.getProperty('name'));
                     }
                 })
             }

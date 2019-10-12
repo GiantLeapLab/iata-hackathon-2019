@@ -86,16 +86,16 @@ function addCityWeather(city, date = '2019-10-14'){
                             url: 'https://' + data.forecast.iconUrl
                         },
                     });
-                    weatherMarkers[place.getProperty('geonameid')] = marker;
+                    weatherMarkers[city] = marker;
                 }
             });
     }
 }
 
-function removeCityWeather(place) {
-    if (typeof weatherMarkers[place.getProperty('geonameid')] !== 'undefined') {
-        weatherMarkers[place.getProperty('geonameid')].setMap(null);
-        delete weatherMarkers[place.getProperty('geonameid')];
+function removeCityWeather(city) {
+    if (typeof weatherMarkers[city] !== 'undefined') {
+        weatherMarkers[city].setMap(null);
+        delete weatherMarkers[city];
     }
 }
 
