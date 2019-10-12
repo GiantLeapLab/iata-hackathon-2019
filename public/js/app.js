@@ -4,7 +4,11 @@ var bounds = [];
 var boundsVisited = [];
 var boundsUserLocation = [];
 var infoWindow;
-var visitedCountries = { 'Ukraine': {'Odessa':'date', 'Kharkiv': 'June 2, 2019 - June 10, 2019' }, 'Poland': {'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'June 2, 2019 - June 10, 2019' }, 'Belarus': { 'Brest': 'June 2, 2019 - June 10, 2019', 'Minsk': 'June 2, 2019 - June 10, 2019' } };
+var visitedCountries = { 
+    'Hungary': {'Budapest':'June 2, 2019 - June 10, 2019' }, 
+    'Poland': {'Kraków':  'June 2, 2019 - June 10, 2019', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'June 2, 2019 - June 10, 2019' }, 
+    'Belarus': { 'Brest': 'June 2, 2019 - June 10, 2019', 'Minsk': 'June 2, 2019 - June 10, 2019' } 
+};
 var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
@@ -105,7 +109,7 @@ $(document).ready(function () {
                 var fillColor = 'green';
                 var strokeColor = 'green';
             }
-            var iconUrl = "http://maps.google.com/mapfiles/ms/micons/purple-pushpin.png";
+            var iconUrl = "/public/img/visited-city.png";
         } else {
             //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
             var fillColor = '#3cad4c';
@@ -124,7 +128,7 @@ $(document).ready(function () {
             icon: {
                 url: iconUrl
             },
-            visible: ((typeof feature.getProperty('selected') !== 'undefined' && feature.getProperty('selected')) || typeof feature.getProperty('visited') !== 'undefined'),
+            visible: ((typeof feature.getProperty('selected') !== 'undefined' && feature.getProperty('selected')) || typeof feature.getProperty('alwaysVisible') !== 'undefined'),
         });
     });
 

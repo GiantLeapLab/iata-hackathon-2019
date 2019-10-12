@@ -13,13 +13,13 @@ function showVisitedCountries(featuresCountries, featuresPlaces) {
                 boundsVisited.extend(latLng);
             })
             item.setProperty('visited', true);
+            item.setProperty('alwaysVisible', true);
             featuresPlaces.forEach(function (place) {
                 if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                     if(Object.keys(visitedCountries[item.getProperty('ADMIN')]).indexOf(place.getProperty('name')) !== -1){
                         place.setProperty('visited', true);
-                    }else{
-                        place.setProperty('selected', true);
                     }
+                    place.setProperty('alwaysVisible', true);
                 }
             })
         }

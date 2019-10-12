@@ -4,6 +4,8 @@ require '../vendor/autoload.php';
 
 use Api\SitaApi_Airport;
 
+define('ROOT_PATH', dirname(__FILE__) . '/..');
+
 $actions = [
     'weather' => [
         'class' => 'SitaApi_Weather',
@@ -15,7 +17,7 @@ $actions = [
     ],
     'search' => [
         'class' => 'SunExpress_Api',
-        'method' => 'basicOneWaySearch'
+        'method' => 'basicOneWaySearchCached'
     ]
 ];
 
