@@ -186,10 +186,18 @@ $(document).ready(function () {
 var AnswerActions = {
     j: jQuery,
     defaultAnswerIndex: 100,
+    prevAnswer: 'default',
     answers: [
-
         {
             index: 1,
+            entity: 'hi',
+            text: 'Hi',
+            execute: function (params) {
+                //silence is golden
+            }
+        },
+        {
+            index: 2,
             entity: "where_to_go",
             text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
             execute: function (params) {
@@ -212,8 +220,10 @@ var AnswerActions = {
                 TripData.dateFrom = moment(dateFrom).format("YYYY-MM-DD")
                 TripData.dateTo = moment(dateTo).format("YYYY-MM-DD")
                 AnswerActions.j('.date--first-part').text(moment(dateFrom).format("MMM D, YYYY") + ' - ' + moment(dateTo).format("MMM D, YYYY"))
+
             }
         },
+
         {
             index: 100,
             entity: 'default',
@@ -232,6 +242,7 @@ var AnswerActions = {
                 result = Object.assign({}, answer)
             }
         })
+        this.prevAnswer = result.index != this.defaultAnswerIndex ? result.entity : 'default'
 
         return result
     }
