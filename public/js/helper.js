@@ -71,7 +71,7 @@ function showUserLocation(){
         var marker = new google.maps.Marker({
             position: userLocation,
             map: map,
-            icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            icon: 'https://www.google.com/mapfiles/arrow.png',
             title: 'You are here'
         });
         boundsUserLocation.extend(userLocation);
@@ -111,14 +111,27 @@ function addPolyline(fromLatLng, toLatLng) {
     ];
   
     if(typeof flightPath === 'undefined'){
+        var lineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 1,
+            strokeWeight: 4,
+            scale: 4
+          };
+
         flightPath = new google.maps.Polyline({
             geodesic: true,
             strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
+            strokeOpacity: 0.0,
+            strokeWeight: 4,
+            icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '20px'
+              }],
         });
     }
     flightPath.setPath(flightPlanCoordinates);
+    flightPath.setMap(null);
     flightPath.setMap(map);
 }
 

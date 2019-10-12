@@ -1,0 +1,49 @@
+.toast-area {
+  // position: absolute; 
+  z-index: z('toast-area');
+  // width: $toast-area--width;
+  width: 0;
+  height: 100vh;
+
+  overflow: hidden;
+  flex-grow: 0;
+  display: flex;
+
+  transition: all 0.2s;
+
+  &.active {
+    width: $toast-area--width;
+  }
+
+
+  // top: 0;
+  // right: 0;
+
+  .toast-area--wrapper {
+    position: relative; 
+    width: 100%; 
+    height: 100%;
+
+    .toast-area--fader {
+      width: 100%; 
+      height: 100%;
+      position: absolute; 
+      z-index: z('toast-area--fader');
+      background-color: rgba(0,0,0,0.5); 
+    }
+
+    .toast-area--inner {
+      position: absolute; 
+      min-height: 100px;
+      bottom: 0; 
+      right: 0;
+      z-index: z('toast-area--inner');
+      padding-top: 10px;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-bottom: 10px;
+      // padding-bottom: 70px;
+    }
+  } 
+
+}

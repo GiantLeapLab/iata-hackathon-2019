@@ -1,0 +1,19 @@
+.theme-container {
+    // border: 10px solid orange;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // background-color: green;  
+
+    z-index: z('theme-container');
+
+
+    .theme-container--inner {
+        position: relative;
+
+        display: flex;
+    }
+}

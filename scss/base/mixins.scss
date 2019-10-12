@@ -1,0 +1,88 @@
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+//.block {
+//  @include clearfix();
+//}
+
+
+// placeholders
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+//input,
+//textarea {
+//  @include input-placeholder {
+//    color: $grey;
+//  }
+//}
+
+
+// z-index structure
+@function z($name) {
+  @if index($z-indexes, $name) {
+    @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+  } @else {
+    @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+    @return null;
+  }
+}
+$z-indexes: (
+        "top-bar",
+        "sidebar",
+        "control-bar",
+        "toast-area--inner",
+        "toast-area--fader",
+        "toast-area", 
+        "theme-container",
+        // "map",
+        "one",
+);
+
+//.site-header {
+//  z-index: z('one');
+//}
+
+// truncate
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@mixin hidden {
+  display: none;
+  visibility: hidden;
+}
+
+
+// hide text
+@mixin hide-text($break: false, $indent: 200%, $align: left, $overflow: hidden) {
+  @if $break {
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+  }
+  text: {
+    indent: $indent;
+    align: $align;
+  }
+  font-size: 0;
+  white-space: nowrap;
+  @if $overflow {
+    overflow: $overflow;
+  }
+}

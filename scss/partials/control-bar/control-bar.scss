@@ -1,0 +1,33 @@
+.control-bar {
+    z-index: z('control-bar');
+    position: fixed;
+    bottom: -100px;
+    right: calc(50% + 50px);
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+
+    &.active {
+      transform: translate(0px, -100px);
+    }
+
+   .control  {
+      margin: 0 10px;
+      font-size: 18px;
+      color: black;
+      font-weight: normal;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 15px;
+
+      &.control-rec {
+         background-color:   $button-default--color;
+
+      }
+      
+      &.control-stop {
+         background-color:   $button-default--color;
+      }
+
+   }
+}

@@ -43,7 +43,7 @@ body {
 }
 #controls {
     display: flex;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
 }
 button {
     flex-grow: 1;

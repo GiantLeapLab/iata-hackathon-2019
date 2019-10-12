@@ -1,39 +1,139 @@
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>FRA</title>
+    <title>Vacation planner</title>
+
+    <link rel="stylesheet" href="fontawesome/5.0.8/css/fontawesome-all.min.css">
+
+    <link rel="stylesheet" href="bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- ! theme.css main theme template style -->
+    <!-- ! Use theme.css with gulp only -->
+    <link href="css/theme.css" rel="stylesheet" type="text/css">
+    
+    <!-- Use style.css for custom style -->
     <link href="css/style.css" rel="stylesheet" type="text/css">
+
     <script src="js/data/countries.short.js"></script>
     <script src="js/data/ne_50m_populated_places_simple.js"></script>
     <script src="js/data/airports.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
+    
     <script src="js/helper.js"></script>
     <script src="js/app.js"></script>
+    
 </head>
 
 <body>
-<div id="map"></div>
+
+        
+<!-- ! use .active class for controls-bar visible -->
+<div class="top-bar active">
+    <div class="date-block">
+            <span>Dates:</span>
+            <div class="date date--first-part">
+                Oct 16, 2019 - Oct 23, 2019
+            </div>
+            <div class="date date--separator">
+                    /
+                </div>
+            <div class="date date--second-part">
+                Going to Croatia, Split
+            </div>
+    </div>
+    
+    <div class="button-block">
+        
+        <div class="btn">
+            <i class="fa fa-check"></i>
+            Booked
+        </div>
+    </div>
+</div>
+
 <div class="sidebar">
     <select id="countrySelect" multiple size="30">
     </select>
 </div>
 
-<hr>
-<h1>Simple Recorder.js demo</h1>
-<div id="controls">
-    <button id="recordButton">Record</button>
-    <button id="pauseButton" disabled>Pause</button>
-    <button id="stopButton" disabled>Stop</button>
+<!-- ! use .active class for controls-bar visible -->
+<div class="control-bar active">
+        <!-- <h1>Simple Recorder.js demo</h1> -->
+    
+        <div id="controls">
+            <button class="control control-rec" id="recordButton">Say</button>
+            <!-- <button id="pauseButton" disabled>Pause</button> -->
+            <button class="control control-stop" id="stopButton" disabled>Send</button>
+        </div>
+        <!-- <div id="formats">Format: start recording to see sample rate</div> -->
+        <!-- <h3>Recordings</h3> -->
+        <!-- <ol id="recordingsList"></ol> -->
+        <!-- <div id="results"></div> -->
 </div>
-<div id="formats">Format: start recording to see sample rate</div>
-<h3>Recordings</h3>
-<ol id="recordingsList"></ol>
-<div id="results"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&language=en">
+<div class="theme-container">
+    <div class="theme-container--wrapper">
+    
+        <div class="theme-container--inner">
+
+                <div class="map-contaner">
+                        <div id="map"></div>
+                    </div>
+
+                <!-- Toast area start  -->
+                <!-- ! use .active class for toast-area visible -->
+                <div class="toast-area active" aria-live="polite" aria-atomic="true">
+                        
+                        <div class="toast-area--wrapper">
+                        <div class="toast-area--fader"></div>
+                        <div class="toast-area--inner">
+
+                                <!-- ! Use "user" or "bot" class -->
+                            <div class="toast user" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                <div class="toast-body">
+                                    <b>You:</b>
+                                    Hi Sunny!
+                                </div>
+                            </div>
+                                
+                            <div class="toast bot" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                <div class="toast-body">
+                                    <b>Sunny:</b>
+                                    Hi!
+                                </div>
+                            </div>
+
+                            <div class="toast user" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                <div class="toast-body">
+                                    <b>You:</b>
+                                    I’m planning a vacation between October 3 and October 10. Wondering where I could go.
+                                </div>
+                            </div>
+
+                            <div class="toast bot" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                                <div class="toast-body">
+                                    <b>Sunny:</b>
+                                    Ok! Are you up to some sightseeing, basking in the sun, or maybe rural activities?
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+                    </div>
+                    
+        
+        </div>
+    </div>      
+</div>
+
+
+<script src="bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>    
+<script src="js/theme.js"></script> 
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&language=en&key=AIzaSyDorcZqW2o9Vam-wM32QlnVxNTjx4r53p8">
 </script>
 <script src="js/maplabel.js"></script>
 

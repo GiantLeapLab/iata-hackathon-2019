@@ -13,7 +13,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: { lat: 52.886, lng: 35.268 },
-        mapTypeId: 'terrain'
+        mapTypeId: 'roadmap'
     });
 
     infoWindow = new google.maps.InfoWindow;
@@ -90,23 +90,28 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
-                var color = 'gray';
+                var fillColor = '#e2e2e2';
+                var strokeColor = '#a7a7a7';
             } else {
-                var color = 'green';
+                var fillColor = 'green';
+                var strokeColor = 'green';
             }
-            var iconUrl = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+            var iconUrl = "http://maps.google.com/mapfiles/kml/pal2/icon13.png";
         } else {
-            var color = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+            //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
+            var fillColor = '#fabe3f';
+            var strokeColor = '#d49c25';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
         }
 
         return /** @type {!google.maps.Data.StyleOptions} */({
             title: feature.getProperty('name'),
-            fillOpacity: 0.45,
-            fillColor: color,
-            strokeColor: color,
-            strokeWeight: 3,
-            strokeOpacity: 0.8,
+            fillOpacity: 0.85,
+            fillColor: fillColor,
+            strokeColor: strokeColor,
+            strokeWeight: 1,
+            strokeOpacity: 1,
+            animation: google.maps.Animation.DROP,
             icon: {
                 url: iconUrl
             },
@@ -147,12 +152,19 @@ $(document).ready(function () {
 
     var recordButton = document.getElementById("recordButton");
     var stopButton = document.getElementById("stopButton");
-    var pauseButton = document.getElementById("pauseButton");
-
+/*
 //add events to those 2 buttons
     recordButton.addEventListener("click", startRecording);
-    stopButton.addEventListener("click", stopRecording);
-    pauseButton.addEventListener("click", pauseRecording);
+    stopButton.addEventListener("click", stopRecording);*/
+
+    $('#controls').on('click', '#stopButton', function(){
+        //console.log('stop record click')
+        stopRecording()
+    })
+    $('#controls').on('click', '#recordButton', function(){
+        //console.log('start record click')
+        startRecording()
+    })
 
 });
 
@@ -169,16 +181,6 @@ var input; 							//MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
-/*
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
-
-//add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-pauseButton.addEventListener("click", pauseRecording);
-*/
 
 function startRecording() {
     console.log("recordButton clicked");
@@ -194,9 +196,14 @@ function startRecording() {
        Disable the record button until we get a success or fail from getUserMedia()
    */
 
-    recordButton.disabled = true;
-    stopButton.disabled = false;
-    pauseButton.disabled = false
+    /*recordButton.disabled = true;
+    stopButton.disabled = false;*/
+
+    //jQuery('#recordButton').attr('disabled', 'disabled');
+    //jQuery('#stopButton').removeAttr('disabled');
+
+    jQuery('#recordButton').prop('disabled', true);
+    jQuery('#stopButton').prop('disabled', false);
 
     /*
         We're using the standard promise based getUserMedia()
@@ -215,7 +222,7 @@ function startRecording() {
         audioContext = new AudioContext();
 
         //update the format
-        document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+        //document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
 
         /*  assign to gumStream for later use  */
         gumStream = stream;
@@ -238,34 +245,18 @@ function startRecording() {
         //enable the record button if getUserMedia() fails
         recordButton.disabled = false;
         stopButton.disabled = true;
-        pauseButton.disabled = true
+        console.log(err)
     });
-}
-
-function pauseRecording(){
-    console.log("pauseButton clicked rec.recording=",rec.recording );
-    if (rec.recording){
-        //pause
-        rec.stop();
-        pauseButton.innerHTML="Resume";
-    }else{
-        //resume
-        rec.record()
-        pauseButton.innerHTML="Pause";
-
-    }
 }
 
 function stopRecording() {
     console.log("stopButton clicked");
 
     //disable the stop button, enable the record too allow for new recordings
-    stopButton.disabled = true;
-    recordButton.disabled = false;
-    pauseButton.disabled = true;
-
-    //reset button just in case the recording is stopped while paused
-    pauseButton.innerHTML="Pause";
+    /*stopButton.disabled = true;
+    recordButton.disabled = false;*/
+    jQuery('#stopButton').attr('disabled', 'disabled');
+    jQuery('#recordButton').removeAttr('disabled');
 
     //tell the recorder to stop the recording
     rec.stop();
@@ -287,7 +278,7 @@ function f(blob, callback) {
     jQuery.ajax({
         url: "https://api.wit.ai/speech?v=20170307",
         type:"POST",
-        headers: {"Authorization": "Bearer DQPPDWQB5IMTRQFPIJ7QZKNTP4F2MQV4", "Content-Type":"audio/wav"},
+        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
         data: blob,
         processData: false,
         success: function (response) {

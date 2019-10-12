@@ -1,0 +1,56 @@
+.toast {
+  // border: 3px solid red;
+
+  font-size: 20px;
+  position: relative;
+  width: 90%; 
+  overflow: visible;
+
+  &.bot {
+    background-color: $toast-color--bot ;
+    margin-left: 0;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top:5px;
+      left: -4px;
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg);
+      background-color: $toast-color--bot ;
+    }
+  }
+
+  &.user {
+    background-color: $toast-color--user;
+    margin-left: 10%;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top:5px;
+      right: -4px;
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg);
+      background-color: $toast-color--user;
+    }
+  }
+
+  button {
+    flex-grow: 0;
+    height: auto;
+    min-width: none;
+    width: auto;
+    border: none;
+    border-radius: 0.15rem;
+    
+    margin-left: 2px;
+    box-shadow: none;
+    cursor: pointer;
+    
+  }
+}
