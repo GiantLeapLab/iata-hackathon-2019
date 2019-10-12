@@ -159,135 +159,130 @@ $(document).ready(function () {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
-    var recordButton = document.getElementById("recordButton");
-    var stopButton = document.getElementById("stopButton");
-    /*
-    //add events to those 2 buttons
-        recordButton.addEventListener("click", startRecording);
-        stopButton.addEventListener("click", stopRecording);*/
 
-    $('#controls').on('click', '#stopButton', function () {
-        //console.log('stop record click')
-        stopRecording()
+
+    $('#controls').on('click', '#stopButton', function(){
+        RecordSpeech.stopRecording(WitTool.sendSpeech.bind(WitTool))
     })
-    $('#controls').on('click', '#recordButton', function () {
-        //console.log('start record click')
-        startRecording()
+    $('#controls').on('click', '#recordButton', function(){
+        SunnyBot.listen()
     })
 
 });
 
+var SunnyBot = {
+    listen: function(){
+        RecordSpeech.startRecording()
+    },
+    say: function () {
+
+    }
+}
+
 /* RECORD PART */
+var RecordSpeech = {
+    url: window.URL || window.webkitURL,
+    gumStream: null,
+    input: null,
+    AudioContext: window.AudioContext || window.webkitAudioContext,
+    audioContext: null,
+    startButton: null,
+    stopButton: null,
+    onStartCallback: function () { console.log("Recording started") },
+    onStopCallback: function () { console.log('stop record') },
+    initButtons: function(){
+        if (!this.startButton) {
+            this.startButton = document.getElementById('recordButton')
+        }
+        if (!this.stopButton) {
+            this.stopButton = document.getElementById('stopButton')
+        }
+    },
+    beforeStartRecord: function() {
+        this.input = null
+        this.audioContext = null
+        this.gumStream = null
+        this.initButtons()
+        console.log("recordButton clicked")
+    },
+    beforeStopRecord: function(){
+        this.initButtons()
+        this.onStopCallback = function () { console.log('stop record. empty callback') }
+        console.log("stopButton clicked");
+    },
+    startRecording: function() {
+        var constraints = { audio: true, video:false }
+        this.beforeStartRecord();
+        this.startButton.disabled = true;
+        this.stopButton.disabled = false;
+        var that = this
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+            console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+            that.audioContext = new that.AudioContext();
+            that.gumStream = stream;
+            that.input = that.audioContext.createMediaStreamSource(stream);
+            that.rec = new Recorder(that.input,{numChannels:1})
+            //start the recording process
+            that.rec.record()
 
-//webkitURL is deprecated but nevertheless
-URL = window.URL || window.webkitURL;
+            that.onStartCallback();
+        }).catch(function(err) {
+            //enable the record button if getUserMedia() fails
+            that.stopButton.disabled = true;
+            that.startButton.disabled = false;
+            console.log(err)
+        });
+    },
+    stopRecording: function (stopCallback) {
+        this.beforeStopRecord()
 
-var gumStream; 						//stream from getUserMedia()
-var rec; 							//Recorder.js object
-var input; 							//MediaStreamAudioSourceNode we'll be recording
-
-// shim for AudioContext when it's not avb.
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioContext //audio context to help us record
-
-
-function startRecording() {
-    console.log("recordButton clicked");
-
-    /*
-        Simple constraints object, for more advanced audio features see
-        https://addpipe.com/blog/audio-constraints-getusermedia/
-    */
-
-    var constraints = { audio: true, video: false }
-
-    /*
-       Disable the record button until we get a success or fail from getUserMedia()
-   */
-
-    /*recordButton.disabled = true;
-    stopButton.disabled = false;*/
-
-    //jQuery('#recordButton').attr('disabled', 'disabled');
-    //jQuery('#stopButton').removeAttr('disabled');
-
-    jQuery('#recordButton').prop('disabled', true);
-    jQuery('#stopButton').prop('disabled', false);
-
-    /*
-        We're using the standard promise based getUserMedia()
-        https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-    */
-
-    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-        console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
-
-        /*
-            create an audio context after getUserMedia is called
-            sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
-            the sampleRate defaults to the one set in your OS for your playback device
-
-        */
-        audioContext = new AudioContext();
-
-        //update the format
-        //document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
-
-        /*  assign to gumStream for later use  */
-        gumStream = stream;
-
-        /* use the stream */
-        input = audioContext.createMediaStreamSource(stream);
-
-        /*
-            Create the Recorder object and configure to record mono sound (1 channel)
-            Recording 2 channels  will double the file size
-        */
-        rec = new Recorder(input, { numChannels: 1 })
-
-        //start the recording process
-        rec.record()
-
-        console.log("Recording started");
-
-    }).catch(function (err) {
-        //enable the record button if getUserMedia() fails
-        recordButton.disabled = false;
-        stopButton.disabled = true;
-        console.log(err)
-    });
+        if(typeof stopCallback == "function") {
+            this.onStopCallback = stopCallback;
+        }
+        //disable the stop button, enable the record too allow for new recordings
+        this.stopButton.disabled = true;
+        this.startButton.disabled = false;
+        //tell the recorder to stop the recording
+        this.rec.stop();
+        //stop microphone access
+        this.gumStream.getAudioTracks()[0].stop();
+        //create the wav blob and pass it on to the callback
+        var that = this
+        this.rec.exportWAV(this.onStopCallback/*function (blob) {
+            that.onStopCallback(blob)
+        }*/);
+    }
 }
 
-function stopRecording() {
-    console.log("stopButton clicked");
 
-    //disable the stop button, enable the record too allow for new recordings
-    /*stopButton.disabled = true;
-    recordButton.disabled = false;*/
-    jQuery('#stopButton').attr('disabled', 'disabled');
-    jQuery('#recordButton').removeAttr('disabled');
+var WitTool = {
+    speechURL: "https://api.wit.ai/speech?v=20170307",
+    apiKey: "HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL",
+    sendSpeech:function (speechBlob) {
+        var that = this
 
-    //tell the recorder to stop the recording
-    rec.stop();
-
-    //stop microphone access
-    gumStream.getAudioTracks()[0].stop();
-
-    //create the wav blob and pass it on to createDownloadLink
-    rec.exportWAV(createDownloadLink);
+        jQuery.ajax({
+            url: this.speechURL,
+            type:"POST",
+            headers: {"Authorization": "Bearer " + this.apiKey, "Content-Type":"audio/wav"},
+            data: speechBlob,
+            processData: false,
+            success: function (response) {
+                console.log(response)
+                if (typeof that.speechResponseCallback == "function") {
+                    that.speechResponseCallback(response)
+                }
+            }
+        })
+    },
+    speechResponseCallback: function (response) { console.log('WIT Speech response received', response) }
 }
 
-function createDownloadLink(blob) {
-    f(blob, function (response) {
-        console.log(response)
-    })
-}
-
-function f(blob, callback) {
+function f(blob) {
     jQuery.ajax({
         url: "https://api.wit.ai/speech?v=20170307",
-        type: "POST",
-        headers: { "Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type": "audio/wav" },
+        type:"POST",
+        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
         data: blob,
         processData: false,
         success: function (response) {
