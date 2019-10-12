@@ -2,3 +2,4 @@ vendor
 node_modules
 .idea
 npm-debug.log
+iata-team.code-workspace
