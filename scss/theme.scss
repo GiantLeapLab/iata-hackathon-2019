@@ -1,3 +1,13 @@
-body {
-//    border: 1px solid transparent;  
-}
+// Base
+@import "base/var";
+@import "base/fonts";
+@import "base/mixins";
+
+
+// Common style
+@import "common";
+
+
+// Partials
+@import "partials/toast/toast-area";
+@import "partials/toast/toast";

@@ -1,2 +1,2 @@
-
+body{box-sizing:border-box}body *{box-sizing:border-box}body .content{background-color:#000}.toast-area{position:relative;min-height:200px}.toast-area .toast-area--inner{position:absolute;bottom:0;right:0}.toast{border:3px solid red}
 /*# sourceMappingURL=theme.css.map */
