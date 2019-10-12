@@ -13,7 +13,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: { lat: 52.886, lng: 35.268 },
-        mapTypeId: 'terrain'
+        mapTypeId: 'roadmap'
     });
 
     infoWindow = new google.maps.InfoWindow;
