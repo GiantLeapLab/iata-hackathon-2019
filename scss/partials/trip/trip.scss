@@ -1,0 +1,25 @@
+#past-trips{
+    margin: auto;
+    margin-left: -12px;
+    margin-right: -12px;
+    padding-top: 20px;
+
+    .item {
+        width: calc(33.33% - 24px);
+        display: block;
+        float: left;    
+        margin: 12px;
+        border: 4px solid #EBA911;
+        padding: 10px;
+        border-radius: 8px;
+
+        .date {
+            font-size: 15px;
+        }
+
+        .city {
+            font-size: 22px;
+        }
+    } 
+}
+
