@@ -13,9 +13,13 @@ $actions = [
         'class' => 'CarbonApi',
         'method' => 'getCarbonEmission'
     ],
+    'search' => [
+        'class' => 'SunExpress_Api',
+        'method' => 'basicOneWaySearch'
+    ]
 ];
 
-$client = new \GuzzleHttp\Client();
+$client = new \GuzzleHttp\Client(['verify' => false]);
 
 $actionName = !empty($_REQUEST['action']) ? $_REQUEST['action'] : false;
 
