@@ -50,7 +50,7 @@
 <div class="top-bar active">
     <div class="date-block">
             <span>Dates:</span>
-            <div class="date date--first-part">
+            <div class="date date--first-part" id="trip-dates">
                 Oct 16, 2019 - Oct 23, 2019
             </div>
             <div class="date date--separator">
@@ -147,7 +147,7 @@
                         
                         <div class="toast-area--wrapper">
                         <div class="toast-area--fader"></div>
-                        <div class="toast-area--inner">
+                        <div class="toast-area--inner" id="sunny-message-board">
 
                                 <!-- ! Use "user" or "bot" class -->
                             <div class="toast user" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
@@ -191,8 +191,13 @@
 <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.theme.min.css">
 <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
+
 <script src="bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>    
 <script src="custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>    
+
+<script src="bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="js/moment.min.js"></script>
+
 <script src="js/theme.js"></script> 
 
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&language=en&key=AIzaSyDorcZqW2o9Vam-wM32QlnVxNTjx4r53p8">

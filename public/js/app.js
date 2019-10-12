@@ -4,11 +4,13 @@ var bounds = [];
 var boundsVisited = [];
 var boundsUserLocation = [];
 var infoWindow;
-var visitedCountries = { 
-    'Hungary': {'Budapest':'June 2, 2019 - June 10, 2019' }, 
-    'Poland': {'Kraków':  'June 2, 2019 - June 10, 2019', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'June 2, 2019 - June 10, 2019' }, 
-    'Belarus': { 'Brest': 'June 2, 2019 - June 10, 2019', 'Minsk': 'June 2, 2019 - June 10, 2019' } 
+var visitedCountries = {  
+    'Poland': {'Kraków':  'May 10, 2018 - May 13, 2018', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'July 12, 2018 - July 19, 2018' }, 
+    'Lithuania': { 'Vilnius': 'May 2, 2019 - May 8, 2019'},
+    'Czechia': { 'Prague': 'April 15, 2019 - April 23, 2019'},
+    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'}
 };
+var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
 var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
@@ -32,7 +34,7 @@ $(document).ready(function () {
     $('#start-button').click(function () {
         $(this).closest('.start-page').hide();
     })
-
+    $('#start-button').click()
     showPastTrips();
 
     $('#countrySelect').change(function () {
@@ -109,12 +111,14 @@ $(document).ready(function () {
                 var fillColor = 'green';
                 var strokeColor = 'green';
             }
-            var iconUrl = "/public/img/visited-city.png";
+            var iconUrl = "img/visited-city.png";
+            var scaledSize = new google.maps.Size(16, 16);
         } else {
             //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
             var fillColor = '#3cad4c';
             var strokeColor = '#2c870c';
             var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var scaledSize = new google.maps.Size(32, 32)
         }
 
         return /** @type {!google.maps.Data.StyleOptions} */({
@@ -126,7 +130,8 @@ $(document).ready(function () {
             strokeOpacity: 1,
             animation: google.maps.Animation.DROP,
             icon: {
-                url: iconUrl
+                url: iconUrl,
+                scaledSize: scaledSize,
             },
             visible: ((typeof feature.getProperty('selected') !== 'undefined' && feature.getProperty('selected')) || typeof feature.getProperty('alwaysVisible') !== 'undefined'),
         });
@@ -163,24 +168,115 @@ $(document).ready(function () {
         makeVisitedCountriesUnwanted(featuresCountries);
     }, 4000);
 
+    setTimeout(() => {
+        addCountryToVisited(featuresCountries, featuresPlaces);
+    }, 6000);
+
 
 
     $('#controls').on('click', '#stopButton', function(){
-        RecordSpeech.stopRecording(WitTool.sendSpeech.bind(WitTool))
+        SunnyBot.processRequest()
     })
     $('#controls').on('click', '#recordButton', function(){
         SunnyBot.listen()
     })
 
 });
+var AnswerActions = {
+    j: jQuery,
+    defaultAnswerIndex: 0,
+    answers: [
+        {
+            index: 0,
+            entity: 'default',
+            text: 'I am not sure that I understood your question',
+            execute: function () {
+                SunnyBot.say(this.text)
+            }
+        },
+        {
+            index: 1,
+            entity: 'where_to_go',
+            text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
+            execute: function (params) {
+                console.log(params)
+                //trip-dates
+                SunnyBot.say(this.text)
+                if (params.datetime && params.datetime && params.datetime.length > 0) {
+                    var tripDates = params.datetime[0]
+                    TripData.dateFrom = tripDates.from.value
+                    TripData.dateTo = tripDates.to.value
+                    AnswerActions.j('.date--first-part').text(moment(tripDates.from.value).format("MMM D, YYYY") + ' - ' + moment(tripDates.to.value).format("MMM D, YYYY"))
+                    console.log(TripData)
+                }
+            }
+        }
+    ],
+    findAnswer: function(entities){
+        //console.log(entities)
+        var result = this.answers[this.defaultAnswerIndex]
+        this.answers.forEach(function (answer) {
+            if (entities.indexOf(answer.entity)) {
+                //console.log('find answer', answer)
+                result = Object.assign({}, answer)
+            }
+        })
 
+        return result
+    }
+}
+var TripData = {
+    dateFrom: '',
+    dateTo: ''
+}
 var SunnyBot = {
+    j: jQuery,
+    toastContainer: '#sunny-message-board',
+
     listen: function(){
         RecordSpeech.startRecording()
+        //AnswerActions.findAnswer(['where_to_go','datetime']).execute({default:'ffffffff'})
     },
-    say: function () {
 
+    processRequest: function () {
+        //do request to WIT
+        WitTool.speechResponseCallback = this.parseWITResponse.bind(this)
+        RecordSpeech.stopRecording(WitTool.sendSpeech.bind(WitTool))
+    },
+    parseWITResponse: function(response) {
+        console.log('sunny parse start')
+        console.log(response)
+        if (response._text) {
+            this.displayToast(response._text, true)
+            AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
+        }
+    },
+
+    say: function (message) {
+        this.displayToast(message, false)
+        this.voiceAnswer(message)
+    },
+    displayToast: function(message, isUser) {
+        isUser = isUser?isUser:false
+        var template = '<div class="toast #isUser#" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">\n' +
+            '                                <div class="toast-body">\n' +
+            '                                    <b>#name#:</b>\n' +
+            '                                    #message#\n' +
+            '                                </div>\n' +
+            '                            </div>'
+
+        this.j(this.toastContainer).append(
+            template
+                .replace('#isUser#', isUser?'user':'bot')
+                .replace('#name#', isUser?'You':'Sunny')
+                .replace('#message#', message)
+        )
+        this.j('.toast').toast('show')
+    },
+    voiceAnswer: function (message) {
+        console.log('there should be ajax request to the IBM API to transform text into speech')
     }
+
 }
 
 /* RECORD PART */
@@ -264,7 +360,6 @@ var WitTool = {
     apiKey: "HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL",
     sendSpeech:function (speechBlob) {
         var that = this
-
         jQuery.ajax({
             url: this.speechURL,
             type:"POST",
@@ -272,7 +367,7 @@ var WitTool = {
             data: speechBlob,
             processData: false,
             success: function (response) {
-                console.log(response)
+                //console.log(response)
                 if (typeof that.speechResponseCallback == "function") {
                     that.speechResponseCallback(response)
                 }
@@ -282,17 +377,3 @@ var WitTool = {
     speechResponseCallback: function (response) { console.log('WIT Speech response received', response) }
 }
 
-function f(blob) {
-    jQuery.ajax({
-        url: "https://api.wit.ai/speech?v=20170307",
-        type:"POST",
-        headers: {"Authorization": "Bearer HDFNOE33ILJWP2YHRUSAWIZE52SKQKSL", "Content-Type":"audio/wav"},
-        data: blob,
-        processData: false,
-        success: function (response) {
-            if (typeof callback == "function") {
-                callback(response)
-            }
-        }
-    })
-}

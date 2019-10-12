@@ -6,6 +6,14 @@ function makeVisitedCountriesUnwanted(featuresCountries) {
     })
 }
 
+function addCountryToVisited(featuresCountries, featuresPlaces){
+    Object.keys(forgottenVisitedCountry).forEach(function(key){
+        visitedCountries[key] = forgottenVisitedCountry[key]
+    })
+    showVisitedCountries(featuresCountries, featuresPlaces);
+    makeVisitedCountriesUnwanted(featuresCountries);
+}
+
 function showVisitedCountries(featuresCountries, featuresPlaces) {
     featuresCountries.forEach(function (item) {
         if (Object.keys(visitedCountries).indexOf(item.getProperty('ADMIN')) !== -1) {
@@ -118,8 +126,8 @@ function showUserLocation(){
             position: userLocation,
             map: map,
             icon: {
-                //scaledSize: new google.maps.Size(32, 32),
-                url: 'https://www.google.com/mapfiles/arrow.png'
+                scaledSize: new google.maps.Size(32, 32),
+                url: 'img/home-city.png'
               },
             title: 'You are here'
         });

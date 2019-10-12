@@ -10,4 +10,5 @@ $(document).ready(function () {
 
 
   $('.sidebar').draggable();
+  $('.popup--theme').draggable();
 });
