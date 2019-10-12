@@ -223,19 +223,18 @@ var AnswerActions = {
 
             }
         },
-
-        {
-            index: 100,
-            entity: 'default',
-            text: 'I am not sure that I understood your question',
-            execute: function () {
-                SunnyBot.say(this.text)
-            }
-        },
     ],
+    defaultAnswer: {
+        index: 100,
+        entity: 'default',
+        text: 'I am not sure that I understood your question',
+        execute: function () {
+            SunnyBot.say(this.text)
+        }
+    },
     findAnswer: function(entities){
         console.log(entities)
-        var result = this.answers[this.defaultAnswerIndex]
+        var result = this.defaultAnswer
         this.answers.forEach(function (answer) {
             if (entities.indexOf(answer.entity) != -1) {
                 console.log('find answer', answer)
