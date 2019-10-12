@@ -26,7 +26,7 @@ function initMap() {
 $(document).ready(function () {
 
     $('#start-button').click(function () {
-        $(this).parent('div').hide();
+        $(this).closest('.start-page').hide();
     })
 
     showPastTrips();
