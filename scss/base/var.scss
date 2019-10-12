@@ -1,7 +1,14 @@
 // Colors
+$main-color             : #ffc107;
+$toast-color            : blue;
+$toast-color--bot       : yellow;
+$button-rec--color      : red;
+$button-stop--color     : grey;
 
-$toast-color        : blue;
-$toast-color--bot   : yellow;
+$toast-area--width      : 300px;
+$map-area--width        : calc(100% + 300px);   // ! depends on toast area width
+// $map-area--width     : calc(100% - 300px);   // ! depends on toast area width
+$map-area--offset       : -150px; 
 
-$toast-area-width   : 300px; 
-$map-area-width     : calc(100% - 300px);
+// $control-bar--width  : calc(100% - 300px);
+$control-bar--width     : $toast-area--width;

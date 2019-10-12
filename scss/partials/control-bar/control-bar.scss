@@ -1,14 +1,26 @@
 .control-bar {
     z-index: z('control-bar');
 
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 0;
-    width: $map-area-width;
-    background-color: rgba(255,255,255,0.7);
+    right: 0;
+    width: $toast-area--width;
+    background-color:   $main-color;
     padding: 10px;
     
-     h1 {
-        font-size: 14px;
-     }
+   //   h1 {
+   //      font-scize: 14px;
+   //   }
+
+
+   .control  {
+      &.control-rec {
+         background-color:   $button-rec--color;
+      }
+      
+      &.control-stop {
+         background-color:   $button-stop--color;
+      }
+
+   }
 }

@@ -1,7 +1,7 @@
 .toast-area {
   position: absolute; 
   z-index: z('toast-area');
-  width: $toast-area-width;
+  width: $toast-area--width;
   height: 100vh;
 
   top: 0;
@@ -29,7 +29,8 @@
       padding-top: 10px;
       padding-right: 10px;
       padding-left: 10px;
-      padding-bottom: 10px;
+      // padding-bottom: 10px;
+      padding-bottom: 70px;
     }
   } 
 
