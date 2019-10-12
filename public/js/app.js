@@ -5,11 +5,12 @@ var boundsVisited = [];
 var boundsUserLocation = [];
 var infoWindow;
 var visitedCountries = {  
-    'Poland': {'Kraków':  'June 2, 2019 - June 10, 2019', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'June 2, 2019 - June 10, 2019' }, 
-    'Lithuania': { 'Vilnius': 'June 2, 2019 - June 10, 2019'},
-    'Slovenia': { 'Ljubljana': 'June 2, 2019 - June 10, 2019'}
+    'Poland': {'Kraków':  'May 10, 2018 - May 13, 2018', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'July 12, 2018 - July 19, 2018' }, 
+    'Lithuania': { 'Vilnius': 'May 2, 2019 - May 8, 2019'},
+    'Czechia': { 'Prague': 'April 15, 2019 - April 23, 2019'},
+    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'}
 };
-var forgottenVisitedCountry = {'Italy': { 'Rome': 'June 2, 2019 - June 10, 2019', 'Naples': 'June 2, 2019 - June 10, 2019'}}
+var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
 var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
