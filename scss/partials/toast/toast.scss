@@ -15,11 +15,16 @@
       display: block;
       position: absolute;
       top:5px;
-      left: -4px;
+      left: -5px;
       width: 10px;
-      height: 10px;
+      height: 8px;
       transform: rotate(45deg);
       background-color: $toast-color--bot ;
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      border-left: 1px solid rgba(0,0,0,.2);
+      box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
+      -webkit-backdrop-filter: blur(10px);
+
     }
   }
 
@@ -32,11 +37,16 @@
       display: block;
       position: absolute;
       top:5px;
-      right: -4px;
+      right: -5px;
       width: 10px;
-      height: 10px;
+      height: 8px;
       transform: rotate(45deg);
       background-color: $toast-color--user;
+
+      border-top: 1px solid rgba(0,0,0,.1);
+      border-right: 1px solid rgba(0,0,0,.2);
+      box-shadow: 0 -0.25rem 0.75rem rgba(0,0,0,.1);
+      -webkit-backdrop-filter: blur(10px);
     }
   }
 
