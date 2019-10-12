@@ -48,7 +48,7 @@
    
    .button-block {
       display: flex;
-      flex-grow: 0;
+      flex-grow: 0; 
 
       .btn {
          background-color: $top-bar-btn--bg;
@@ -60,6 +60,10 @@
          top: 10px;
          color: white;
          line-height: 16px;
+
+         i {
+            margin-right: 5px;
+         }
       }
    }
     
