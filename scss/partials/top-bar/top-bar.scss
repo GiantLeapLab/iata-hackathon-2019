@@ -4,10 +4,14 @@
     top: -50px;
     right: 0;
     width: 100%;
+
     height: 50px;
-    padding: 10px;
+    line-height: 50px;
+    padding: 0 10px;
     
    transition: all 0.5s;
+
+   display: flex;
 
     &.active {
       transform: translate(0px, 50px);
@@ -15,8 +19,49 @@
 
     background-color: $top-bar--bg;
 
-    button {
-      background-color: $top-bar-btn--bg;
-    }
+
+   
+   .date-block {
+      display: flex;
+      flex-grow: 1;
+
+      span {
+         font-size: 16px;
+         color: grey;
+         margin-right: 5px;
+      }
+
+      .date {
+         font-size: 18px;
+         color: black;
+         font-weight: bold;
+         display: inline-block;
+
+         .date--first-part {
+         
+         }
+         .date--second-part {
+            
+         }
+      }
+   }
+   
+   .button-block {
+      display: flex;
+      flex-grow: 0;
+
+      .btn {
+         background-color: $top-bar-btn--bg;
+         font-weight: bold;
+         font-size: 16px;
+         display: inline-block;
+         height: 30px;
+         position: relative;
+         top: 10px;
+         color: white;
+         line-height: 16px;
+      }
+   }
+    
 
 }
