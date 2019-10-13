@@ -378,6 +378,10 @@ var SunnyBot = {
             this.j('.popup-force-hide').hide()
             if(response.entities && response.entities['location_info']) {
                 this.displayToast('show me some info about antalya.', true)
+            } else if (response.entities && response.entities['proximity']) {
+                this.displayToast('sightseeing would be good, not too far, and it would be great to be close to the coast.', true)
+            } else if (response.entities && response.entities['location_visited']) {
+                this.displayToast('actually, i have been to italy already', true)
             } else if (response.entities && response.entities['flights_to_location']) {
                 this.displayToast('i like it, let’s check what flights to antalya are available.', true)
             } else {
