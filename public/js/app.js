@@ -113,11 +113,11 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
+                var fillColor = '#e2e2e2';
+                var strokeColor = '#a7a7a7';
+            } else {
                 var fillColor = '#7eb300';
                 var strokeColor = '#537700';
-            } else {
-                var fillColor = 'green';
-                var strokeColor = 'green';
             }
             var iconUrl = "img/visited-city.png";
             var scaledSize = new google.maps.Size(16, 16);
@@ -170,8 +170,8 @@ $(document).ready(function () {
     });
 
     initBounds();
-   // showVisitedCountries();
-   // makeVisitedCountriesUnwanted();
+    //showVisitedCountries();
+   //makeVisitedCountriesUnwanted();
     showUserLocation();
     /*setTimeout(() => {
         makeVisitedCountriesUnwanted();
