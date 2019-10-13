@@ -292,7 +292,7 @@ function showSelectedCountries(){
                     if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                         place.setProperty('selected', false);
                         removeCityLabel(place);
-                        //removeCityWeather(place.getProperty('name'));
+                        removeCityWeather(place.getProperty('name'));
                     }
                 })
             }
@@ -308,4 +308,32 @@ function showSelectedCountries(){
             map.setCenter(new google.maps.LatLng(50, 10));
             map.setZoom(5)
         }
+}
+
+function resetMap(exceptCity){
+    visitedCountries = [];
+    selectedCountries = [];
+    console.log(weatherMarkers)
+    //clearCityWeather();
+    featuresCountries.forEach(function (item) {
+        
+            item.getGeometry().forEachLatLng(function (latLng) {
+                boundsVisited.extend(latLng);
+            })
+            item.setProperty('visited', false);
+            item.setProperty('alwaysVisible', false);
+            item.setProperty('selected', false);
+            featuresPlaces.forEach(function (place) {
+                if(place.getProperty('name') != exceptCity){
+                    place.setProperty('alwaysVisible', false);
+                    place.setProperty('visited', false);
+                    place.setProperty('selected', false);
+                    removeCityLabel(place);
+                }
+                removeCityWeather(place.getProperty('name'));
+            })
+        
+    })
+    console.log(weatherMarkers)
+
 }
