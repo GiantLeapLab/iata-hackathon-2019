@@ -39,6 +39,9 @@ $(document).ready(function () {
 
     $('#start-button').click(function () {
         $(this).closest('.start-page').hide();
+        setTimeout(function () {
+            SunnyBot.say('Hi Andrey!')
+        }, 1000)
     })
 
     showPastTrips();
