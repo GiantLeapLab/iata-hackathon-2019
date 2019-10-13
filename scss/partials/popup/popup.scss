@@ -13,7 +13,7 @@
     margin-top: -225px;
 
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 10px;
+    border-radius: 5px;
 
     padding-left: 24px;
     padding-right: 24px;
@@ -23,7 +23,6 @@
         // width: 560px;
         width: 600px;
         height: 450px;
-        // margin-left: -440px;
         margin-left: -460px;
         margin-top: -225px;
         z-index: z('popup--flight'); 
@@ -32,6 +31,32 @@
             height: 70px;
             line-height: 70px;
             font-size: 20px;
+        }
+
+        &.fligt-ready {
+            width: 420px; 
+            height: 260px;
+
+            top: 70px;
+            right: 10px;
+
+            margin-left: auto;
+            margin-top: auto;
+
+            .flights {
+                .flight {
+                    padding: 10px;
+                    height: 160px;
+
+                    .f-col-3 {
+                        .stoppes  {
+                            padding-left: 0;
+                            margin-top: 27px;
+                        }
+                    }
+                }
+            }
+
         }
     }
 

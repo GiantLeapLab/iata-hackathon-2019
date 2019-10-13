@@ -313,8 +313,7 @@ function showSelectedCountries(){
 function resetMap(exceptCity){
     visitedCountries = [];
     selectedCountries = [];
-    console.log(weatherMarkers)
-    //clearCityWeather();
+
     featuresCountries.forEach(function (item) {
         
             item.getGeometry().forEachLatLng(function (latLng) {
@@ -325,15 +324,19 @@ function resetMap(exceptCity){
             item.setProperty('selected', false);
             featuresPlaces.forEach(function (place) {
                 if(place.getProperty('name') != exceptCity){
-                    place.setProperty('alwaysVisible', false);
-                    place.setProperty('visited', false);
-                    place.setProperty('selected', false);
-                    removeCityLabel(place);
+                    if(place.getProperty('visited') || place.getProperty('selected')){
+                        place.setProperty('alwaysVisible', false);
+                        place.setProperty('visited', false);
+                        place.setProperty('selected', false);
+                        removeCityLabel(place);
+                    }
                 }
                 removeCityWeather(place.getProperty('name'));
             })
         
     })
+    
+    $('.toast-area, .top-bar').removeClass('active');
     console.log(weatherMarkers)
 
 }

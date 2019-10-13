@@ -12,7 +12,6 @@ var visitedCountries = {
     'Germany': { 'Dresden': 'May 2, 2019 - May 8, 2019', 'Hamburg' : 'April 15, 2019 - April 23, 2019', 'Berlin' : 'April 15, 2019 - April 23, 2019', 'Munich' : 'April 15, 2019 - April 23, 2019', 'Frankfurt' : 'April 15, 2019 - April 23, 2019'}
 };
 var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
-var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
 var flightPath;
@@ -114,15 +113,6 @@ $(document).ready(function () {
     //showVisitedCountries();
    //makeVisitedCountriesUnwanted();
     showUserLocation();
-    /*setTimeout(() => {
-        makeVisitedCountriesUnwanted();
-    }, 4000);
-
-    setTimeout(() => {
-        addCountryToVisited();
-    }, 6000);*/
-
-
 
     $('#controls').on('click', '#stopButton', function(){
         SunnyBot.processRequest()
@@ -268,8 +258,8 @@ var AnswerActions = {
                 })
                 TripData.arrCode = airport.iata
                 TripData.arrCity = 'Antalya'
-                /*TripData.dateFrom = '2019-10-15'
-                TripData.dateTo = '2019-10-20'*/
+                TripData.dateFrom = '2019-10-15'
+                TripData.dateTo = '2019-10-20'
                 setTimeout(function () {
                     AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
                         + TripData.depCode
@@ -290,25 +280,33 @@ var AnswerActions = {
             text: 'Ok, booking…',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                /*TripData.arrCode = 'AYT'
-                TripData.depCode = 'FRA'*/
-                var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
-                AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
-                    AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
-                    AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
 
-                })
-                AnswerActions.j('.popup--emissions').fadeIn()
-                SunnyBot.say(text2)
+                AnswerActions.j('div.flight').not('div.flight[data-offer-number="1"]').addClass('inactive')
+                setTimeout(function () {
+                    /*TripData.arrCode = 'AYT'
+                TripData.depCode = 'FRA'*/
+                    var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                    AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
+                        AnswerActions.j('.button-block').show()
+                        AnswerActions.j('.popup--flight').hide()
+                        AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
+                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
+                        AnswerActions.j('.popup--emissions').fadeIn()
+                    })
+                    SunnyBot.say(text2)
+                }, 2000)
+
             }
         },
         {
             index: 9,
-            entity: 'last_Step',
+            entity: 'last_step',
             text: 'Thank you! Your booking is now confirmed!',
             execute: function (params) {
                 SunnyBot.say(this.text)
                 AnswerActions.j('.button-block').show()
+                AnswerActions.j('.popup--flight.fligt-ready').fadeIn()
+                TripData.arrCity = 'Antalya'
                 resetMap(TripData.arrCity)
             }
         }
@@ -348,7 +346,7 @@ var SunnyBot = {
 
     listen: function(){
         RecordSpeech.startRecording()
-        //AnswerActions.findAnswer(['flights_to_location','datetime']).execute({default:'ffffffff'})
+        //AnswerActions.findAnswer(['last_step','datetime']).execute({default:'ffffffff'})
     },
 
     processRequest: function () {
@@ -360,7 +358,7 @@ var SunnyBot = {
         console.log('sunny parse start')
         console.log(response)
         if (response._text) {
-            this.j('.popup--theme').hide()
+            this.j('.popup-force-hide').hide()
             this.displayToast(response._text, true)
             AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
         }
