@@ -243,11 +243,11 @@ var AnswerActions = {
         {
             index: 6,
             entity: 'location_info',
-            text: 'Sure, here is some info from TripAdvisor',
+            text: 'Sure, here is a brief summary.',
             execute: function (params) {
                 SunnyBot.say(this.text)
                 setTimeout(function () {
-                    AnswerActions.j('.popup--antalya').show()
+                    AnswerActions.j('.popup--antalya').fadeIn()
                 }, 200)
             }
         },
@@ -270,15 +270,18 @@ var AnswerActions = {
                 TripData.arrCity = 'Antalya'
                 /*TripData.dateFrom = '2019-10-15'
                 TripData.dateTo = '2019-10-20'*/
-                AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
-                    + TripData.depCode
-                    + "&arrCode="+TripData.arrCode
-                    + "&depDate=" + TripData.dateFrom
-                    + "&arrDate" + TripData.dateTo,
-                    function() {
-                        AnswerActions.j('.popup--flight').show()
-                        SunnyBot.say(text2)
-                });
+                setTimeout(function () {
+                    AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
+                        + TripData.depCode
+                        + "&arrCode="+TripData.arrCode
+                        + "&depDate=" + TripData.dateFrom
+                        + "&arrDate" + TripData.dateTo,
+                        function() {
+                            AnswerActions.j('.popup--flight').fadeIn()
+                            SunnyBot.say(text2)
+                        })
+                }, 2000)
+
             }
         },
         {
@@ -295,7 +298,7 @@ var AnswerActions = {
                     AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
 
                 })
-                AnswerActions.j('.popup--emissions').show()
+                AnswerActions.j('.popup--emissions').fadeIn()
                 SunnyBot.say(text2)
             }
         },
@@ -306,7 +309,6 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 AnswerActions.j('.button-block').show()
-                //todo reset extra data from map
                 resetMap(TripData.arrCity)
             }
         }
