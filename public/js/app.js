@@ -284,7 +284,7 @@ var AnswerActions = {
                 setTimeout(function () {
                     /*TripData.arrCode = 'AYT'
                 TripData.depCode = 'FRA'*/
-                    var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                    var text2 = 'Do you know that this flight will release 414 kilogram of carbon dioxide into the atmosphere? We cannot reduce it for this flight, but instead can help to lower emissions by investing into renovation of old manufactures. Would you mind adding 1 Euro to your ticket cost for this?'
                     AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
                         AnswerActions.j('.button-block').show()
                         AnswerActions.j('#flights-list').hide()
