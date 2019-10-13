@@ -261,13 +261,16 @@ var AnswerActions = {
                 AnswerActions.j('.date--second-part').text(' Antalya, Turkey ')
                 var text2 = 'There is a number of flights to Antalya for your dates. Please review and choose.'
                 var airport = getAirportByCity('Antalya')
+                console.log(airport)
                 buildRouteToUser({
-                    lat: airport.latitude,
-                    lng: airport.longitude
+                    lat: Number(airport.latitude),
+                    lng: Number(airport.longitude)
                 })
                 TripData.arrCode = airport.iata
                 TripData.arrCity = 'Antalya'
-                AnswerActions.j( ".flights" ).load( "api.php?action=search&depCode="
+                /*TripData.dateFrom = '2019-10-15'
+                TripData.dateTo = '2019-10-20'*/
+                AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
                     + TripData.depCode
                     + "&arrCode="+TripData.arrCode
                     + "&depDate=" + TripData.dateFrom
@@ -343,7 +346,7 @@ var SunnyBot = {
 
     listen: function(){
         RecordSpeech.startRecording()
-        //AnswerActions.findAnswer(['book','datetime']).execute({default:'ffffffff'})
+        //AnswerActions.findAnswer(['flights_to_location','datetime']).execute({default:'ffffffff'})
     },
 
     processRequest: function () {
