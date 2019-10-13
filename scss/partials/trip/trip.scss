@@ -13,6 +13,41 @@
         padding: 10px;
         border-radius: 8px;
 
+      
+
+        &:nth-child(4) {
+            display: none;
+        }
+      
+
+        &:nth-child(5) {
+            display: none;
+        }
+
+        &:nth-child(6) {
+            display: none;
+        }
+
+        &:nth-child(7) {
+            display: none;
+        }
+
+        &:nth-child(8) {
+            display: none;
+        }
+
+        // &:nth-child(8) {
+        //     display: none;
+        // }
+
+        // &:nth-child(8) {
+        //     display: none;
+        // }
+
+        // &:nth-child(8) {
+        //     display: none;
+        // }
+
         .date {
             font-size: 15px;
         }
