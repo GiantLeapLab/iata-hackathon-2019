@@ -358,7 +358,12 @@ var SunnyBot = {
         console.log(response)
         if (response._text) {
             this.j('.popup-force-hide').hide()
-            this.displayToast(response._text, true)
+            if(response.entities && response.entities.location_info) {
+                this.displayToast('Show me some info about Antalya.', true)
+            } else {
+                this.displayToast(response._text, true)
+            }
+
             AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
         }
     },
