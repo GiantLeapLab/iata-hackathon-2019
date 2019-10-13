@@ -13,7 +13,7 @@
 <div class="flights">
 
     <?php
-    foreach ($res['flights'] as $flight) {
+    foreach ($res['flights'] as $key => $flight) {
         $toFirstPoint = $flight['flightData'][0][0];
         $toStopCount = count($flight['flightData'][0]);
         if($toStopCount > 1) {
@@ -37,9 +37,9 @@
 
 
         ?>
-        <div class="flight">
+        <div class="flight" data-offer-number="<?php echo ($key + 1) ?>" data-offer-id="<?php echo $flight['offerId'] ?>">
             <div class="f-col-1">
-                <span class="count">1</span>
+                <span class="count"><?php echo ($key + 1) ?></span>
             </div>
 
             <div class="f-col-2">

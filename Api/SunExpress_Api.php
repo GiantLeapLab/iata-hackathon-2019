@@ -151,6 +151,9 @@ XML
 
                $cost = $costAmount . ' ' . $currencyArr[0];
 
+               $offerItemAttr = $itemNode->extract(['OfferItemID']);
+               $offerId = reset($offerItemAttr);
+
                $flightData = [];
                $itemNode->filterXPath('descendant-or-self::ns2:FareDetail/ns2:FareComponent/ns2:SegmentRefs')
                    ->each(function (Crawler $segmentRefNode, $i) use ($dataListData, &$flightData) {
@@ -184,7 +187,11 @@ XML
 
                });
 
-               $itemData = ['cost' => $cost, 'flightData' => $flightData];
+               $itemData = [
+                   'offerId' => $offerId,
+                   'cost' => $cost,
+                   'flightData' => $flightData
+               ];
 
                array_push($data['flights'], $itemData);
            });
