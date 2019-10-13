@@ -266,6 +266,7 @@ var AnswerActions = {
                     lng: airport.longitude
                 })
                 TripData.arrCode = airport.iata
+                TripData.arrCity = 'Antalya'
                 AnswerActions.j( ".flights" ).load( "api.php?action=search&depCode="
                     + TripData.depCode
                     + "&arrCode="+TripData.arrCode
@@ -303,7 +304,7 @@ var AnswerActions = {
                 SunnyBot.say(this.text)
                 AnswerActions.j('.button-block').show()
                 //todo reset extra data from map
-
+                resetMap(TripData.arrCity)
             }
         }
     ],
@@ -333,7 +334,8 @@ var TripData = {
     dateFrom: '',
     dateTo: '',
     depCode: 'FRA',
-    arrCode: ''
+    arrCode: '',
+    arrCity: ''
 }
 var SunnyBot = {
     j: jQuery,
