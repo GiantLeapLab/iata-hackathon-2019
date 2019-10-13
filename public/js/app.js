@@ -243,7 +243,7 @@ var AnswerActions = {
         {
             index: 6,
             entity: 'location_info',
-            text: 'Sure, here is some info from TripAdvisor',
+            text: 'Sure, here is a brief summary.',
             execute: function (params) {
                 SunnyBot.say(this.text)
                 setTimeout(function () {
