@@ -37,7 +37,7 @@
 
 
         ?>
-        <div class="flight inactive">
+        <div class="flight">
             <div class="f-col-1">
                 <span class="count">1</span>
             </div>
