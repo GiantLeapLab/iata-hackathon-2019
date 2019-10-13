@@ -190,10 +190,16 @@ $(document).ready(function () {
         SunnyBot.listen()
     })
 
-    /*$('#controls').on('keydown', '#recordButton', function(){
+    $(document).keydown(function(event){
 
-        SunnyBot.listen()
-    })*/
+        if (event.which == 83 ) {
+            SunnyBot.listen()
+        }
+        if (event.which == 68 ) {
+            SunnyBot.processRequest()
+        }
+
+    })
 
 });
 var AnswerActions = {
@@ -437,15 +443,15 @@ var RecordSpeech = {
         //disable the stop button, enable the record too allow for new recordings
         this.stopButton.disabled = true;
         this.startButton.disabled = false;
-        //tell the recorder to stop the recording
-        this.rec.stop();
-        //stop microphone access
-        this.gumStream.getAudioTracks()[0].stop();
-        //create the wav blob and pass it on to the callback
-        var that = this
-        this.rec.exportWAV(this.onStopCallback/*function (blob) {
-            that.onStopCallback(blob)
-        }*/);
+        if(this.rec) {
+            //tell the recorder to stop the recording
+            this.rec.stop();
+            //stop microphone access
+            this.gumStream.getAudioTracks()[0].stop();
+            //create the wav blob and pass it on to the callback
+            var that = this
+            this.rec.exportWAV(this.onStopCallback);
+        }
     }
 }
 
