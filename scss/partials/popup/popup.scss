@@ -13,7 +13,7 @@
     margin-top: -225px;
 
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 10px;
+    border-radius: 5px;
 
     padding-left: 24px;
     padding-right: 24px;
@@ -32,6 +32,25 @@
             height: 70px;
             line-height: 70px;
             font-size: 20px;
+        }
+
+        &.fligt-ready {
+            width: 420px; 
+            height: 270px;
+
+            top: 70px;
+            right: 10px;
+
+            margin-left: auto;
+            margin-top: auto;
+
+            .flights {
+                .flight {
+                    padding: 10px;
+                    height: 150px;
+                }
+            }
+
         }
     }
 
