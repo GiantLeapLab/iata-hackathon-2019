@@ -45,15 +45,17 @@ function showVisitedCountries() {
 }
 
 function addCityLabel(place) {
-    var mapLabel = new MapLabel({
-        text: place.getProperty('name'),
-        position: new google.maps.LatLng(place.getProperty('latitude'), place.getProperty('longitude')),
-        map: map,
-        fontSize: 16,
-        align: 'center'
-    });
-    labels[place.getProperty('name')] = mapLabel;
-    selectedCities.push(place.getProperty('name'));
+    if(typeof labels[place.getProperty('name')] === 'undefined'){
+        var mapLabel = new MapLabel({
+            text: place.getProperty('name'),
+            position: new google.maps.LatLng(place.getProperty('latitude'), place.getProperty('longitude')),
+            map: map,
+            fontSize: 16,
+            align: 'center'
+        });
+        labels[place.getProperty('name')] = mapLabel;
+        selectedCities.push(place.getProperty('name'));
+    }
 }
 
 function removeCityLabel(place) {
@@ -77,6 +79,9 @@ function clearCityLabels() {
 }
 
 function addCityWeather(city, date = '2019-10-14'){
+    if (typeof weatherMarkers[city] !== 'undefined') {
+        return;
+    }
     if(!date){
         date = '2019-10-14';
     }
