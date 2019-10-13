@@ -280,7 +280,7 @@ function showSelectedCities(){
                         addCityLabel(place);
                         setTimeout(function () {
                             addCityWeather(place.getProperty('name'), TripData.dateFrom);
-                        }, Math.ceil(Math.random() * 300))
+                        }, Math.ceil(Math.random() * 4000))
                         
                     }
                 })
