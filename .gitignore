@@ -3,5 +3,3 @@ node_modules
 .idea
 npm-debug.log
 iata-team.code-workspace
-cache
-!cache/.keep
