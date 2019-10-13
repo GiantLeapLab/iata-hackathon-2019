@@ -257,7 +257,17 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 var text2 = 'There is a number of flights to Antalya for your dates. Please review and choose.'
-
+                var arrCode = getAirportByCity('Antalya')
+                TripData.arrCode = arrCode
+                AnswerActions.j( ".flights" ).load( "api.php?action=search&depCode="
+                    + TripData.depCode
+                    + "&arrCode="+TripData.arrCode
+                    + "&depDate=" + TripData.dateFrom
+                    + "&arrDate" + TripData.dateTo,
+                    function() {
+                        AnswerActions.j('.popup--flight').show()
+                        SunnyBot.say(text2)
+                });
             }
         }
     ],
@@ -285,7 +295,9 @@ var AnswerActions = {
 }
 var TripData = {
     dateFrom: '',
-    dateTo: ''
+    dateTo: '',
+    depCode: 'FRA',
+    arrCode: ''
 }
 var SunnyBot = {
     j: jQuery,
