@@ -18,6 +18,9 @@ var flightPath;
 var featuresCountries;
 var featuresPlaces;
 
+// selected city names
+var selectedCities = [];
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
@@ -77,6 +80,7 @@ $(document).ready(function () {
                 })
             }
         })
+        console.log(selectedCities)
 
         // Fit bounds
         if (!bounds.isEmpty()) {

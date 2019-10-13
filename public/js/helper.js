@@ -43,12 +43,17 @@ function addCityLabel(place) {
         align: 'center'
     });
     labels[place.getProperty('geonameid')] = mapLabel;
+    selectedCities.push(place.getProperty('name'));
 }
 
 function removeCityLabel(place) {
     if (typeof labels[place.getProperty('geonameid')] !== 'undefined') {
         labels[place.getProperty('geonameid')].setMap(null);
         delete labels[place.getProperty('geonameid')];
+        var index = selectedCities.indexOf(place.getProperty('name'));
+        if (index > -1) {
+            selectedCities.splice(index, 1);
+        }
     }
 }
 
@@ -58,6 +63,7 @@ function clearCityLabels() {
         delete label;
     })
     labels = [];
+    selectedCities = [];
 }
 
 function addCityWeather(city, date = '2019-10-14'){
@@ -69,7 +75,6 @@ function addCityWeather(city, date = '2019-10-14'){
             
         })
             .done(function( data ) {
-                console.log(data);
                 if(data.success){
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(airport.latitude, airport.longitude),
