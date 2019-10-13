@@ -23,12 +23,13 @@ class CarbonApi
                 . $passengersAmount . '&roundtrip=false&flightclass=economy'
             );
 
-            $res = json_decode($response->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-        } else {
-            $res = [];
+            return new JsonResponse($response->getBody()->getContents(), $response->getStatusCode());
         }
 
-        include(TPL_PATH . '/co.php');
+        return new JsonResponse([
+            'success' => false,
+            'errors' => 'Something went wrong'
+        ], 500);
     }
 
 }
