@@ -278,7 +278,10 @@ function showSelectedCities(){
                     if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                         place.setProperty('selected', true);
                         addCityLabel(place);
-                        addCityWeather(place.getProperty('name'), TripData.dateFrom);
+                        setTimeout(function () {
+                            addCityWeather(place.getProperty('name'), TripData.dateFrom);
+                        }, Math.ceil(Math.random() * 300))
+                        
                     }
                 })
             }
