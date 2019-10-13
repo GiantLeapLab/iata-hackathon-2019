@@ -77,7 +77,9 @@ function clearCityLabels() {
 }
 
 function addCityWeather(city, date = '2019-10-14'){
-
+    if(!date){
+        date = '2019-10-14';
+    }
     var airport = getAirportByCity(city);
     if(airport){
         $.ajax({
@@ -261,6 +263,35 @@ function showPastTrips(){
     });
 }
 
+function showSelectedCities(){
+    featuresCountries.forEach(function (item) {
+        // Show selected country
+        if (selectedCountries.indexOf(item.getProperty('ADMIN')) !== -1) {
+            if (item.getProperty('selected')) {
+                // Show cities
+                featuresPlaces.forEach(function (place) {
+                    if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
+                        place.setProperty('selected', true);
+                        addCityLabel(place);
+                        addCityWeather(place.getProperty('name'), TripData.dateFrom);
+                    }
+                })
+            }
+            // Hide unselected countries
+        } else {
+            // Hide cities
+            featuresPlaces.forEach(function (place) {
+                if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
+                    place.setProperty('selected', false);
+                    removeCityLabel(place);
+                    removeCityWeather(place.getProperty('name'));
+                }
+            })
+        }
+    })
+    console.log(selectedCities)
+}
+
 function showSelectedCountries(){
         infoWindow.close();
         clearBounds();
@@ -276,25 +307,25 @@ function showSelectedCountries(){
                     item.setProperty('selected', true);
 
                     // Show cities
-                    featuresPlaces.forEach(function (place) {
+                    /*featuresPlaces.forEach(function (place) {
                         if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                             place.setProperty('selected', true);
                             addCityLabel(place);
                             //addCityWeather(place.getProperty('name'));
                         }
-                    })
+                    })*/
                 }
                 // Hide unselected countries
             } else {
                 item.setProperty('selected', false);
                 // Hide cities
-                featuresPlaces.forEach(function (place) {
+                /*featuresPlaces.forEach(function (place) {
                     if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
                         place.setProperty('selected', false);
                         removeCityLabel(place);
                         removeCityWeather(place.getProperty('name'));
                     }
-                })
+                })*/
             }
         })
         console.log(selectedCities)
