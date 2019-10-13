@@ -268,8 +268,8 @@ var AnswerActions = {
                 })
                 TripData.arrCode = airport.iata
                 TripData.arrCity = 'Antalya'
-                /*TripData.dateFrom = '2019-10-15'
-                TripData.dateTo = '2019-10-20'*/
+                TripData.dateFrom = '2019-10-15'
+                TripData.dateTo = '2019-10-20'
                 setTimeout(function () {
                     AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
                         + TripData.depCode
@@ -290,16 +290,21 @@ var AnswerActions = {
             text: 'Ok, booking…',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                /*TripData.arrCode = 'AYT'
-                TripData.depCode = 'FRA'*/
-                var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
-                AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
-                    AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
-                    AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
 
-                })
-                AnswerActions.j('.popup--emissions').fadeIn()
-                SunnyBot.say(text2)
+                AnswerActions.j('div.flight').not('div.flight[data-offer-number="1"]').addClass('inactive')
+                setTimeout(function () {
+                    /*TripData.arrCode = 'AYT'
+                TripData.depCode = 'FRA'*/
+                    var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                    AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
+                        AnswerActions.j('.popup--flight').hide()
+                        AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
+                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
+                        AnswerActions.j('.popup--emissions').fadeIn()
+                    })
+                    SunnyBot.say(text2)
+                }, 2000)
+
             }
         },
         {
@@ -360,7 +365,7 @@ var SunnyBot = {
         console.log('sunny parse start')
         console.log(response)
         if (response._text) {
-            this.j('.popup--theme').hide()
+            this.j('.popup-force-hide').hide()
             this.displayToast(response._text, true)
             AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
         }
