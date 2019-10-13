@@ -289,7 +289,7 @@ var AnswerActions = {
                         AnswerActions.j('.button-block').show()
                         AnswerActions.j('#flights-list').hide()
                         AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
-                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
+                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed() + ' kg')
                         AnswerActions.j('.popup--emissions').fadeIn()
                     })
                     SunnyBot.say(text2)
