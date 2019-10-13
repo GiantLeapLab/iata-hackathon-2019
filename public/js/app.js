@@ -283,7 +283,14 @@ var AnswerActions = {
             text: 'Ok, booking…',
             execute: function (params) {
                 SunnyBot.say(this.text)
+                /*TripData.arrCode = 'AYT'
+                TripData.depCode = 'FRA'*/
                 var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                AnswerActions.j.get('/public/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
+                    AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
+                    AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
+
+                })
                 AnswerActions.j('.popup--emissions').show()
                 SunnyBot.say(text2)
             }
@@ -334,7 +341,7 @@ var SunnyBot = {
 
     listen: function(){
         RecordSpeech.startRecording()
-        //AnswerActions.findAnswer(['where_to_go','datetime']).execute({default:'ffffffff'})
+        //AnswerActions.findAnswer(['book','datetime']).execute({default:'ffffffff'})
     },
 
     processRequest: function () {
