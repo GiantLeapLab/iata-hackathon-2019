@@ -268,6 +268,7 @@ var AnswerActions = {
                         function() {
                             AnswerActions.j('#flights-list').fadeIn()
                             SunnyBot.say(text2)
+                            //AnswerActions.findAnswer(['last_step','datetime']).execute({default:'ffffffff'})
                         })
                 }, 2000)
 
@@ -279,15 +280,17 @@ var AnswerActions = {
             text: 'Ok, booking…',
             execute: function (params) {
                 SunnyBot.say(this.text)
-
                 AnswerActions.j('#flights-list div.flight').not('div.flight[data-offer-number="1"]').addClass('inactive')
+                TripData.selectedFlight = 1
                 setTimeout(function () {
                     /*TripData.arrCode = 'AYT'
                 TripData.depCode = 'FRA'*/
                     var text2 = 'Do you know that this flight will release 414 kilogram of carbon dioxide into the atmosphere? We cannot reduce it for this flight, but instead can help to lower emissions by investing into renovation of old manufactures. Would you mind adding 1 Euro to your ticket cost for this?'
                     AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
                         AnswerActions.j('.button-block').show()
+
                         AnswerActions.j('#flights-list').hide()
+
                         AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
                         AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed() + ' kg')
                         AnswerActions.j('.popup--emissions').fadeIn()
@@ -303,10 +306,21 @@ var AnswerActions = {
             text: 'Thank you! Your booking is now confirmed!',
             execute: function (params) {
                 SunnyBot.say(this.text)
+                TripData.selectedFlight = 1
+                var selectedFlight = AnswerActions.j('#flights-list div.flight[data-offer-number="'+TripData.selectedFlight+'"]')
+                var readyPopup = AnswerActions.j('.popup--flight.fligt-ready')
+                readyPopup.find('.price').text('€'+AnswerActions.j.trim(selectedFlight.find('.price').text().replace('EUR', '')))
+                readyPopup.find('.to').html('<span><i class="fa fa-arrow-right"></i> '+selectedFlight.data('to-first-date')+',</span> \n' +
+                    ' '+selectedFlight.data('to-first-time')+' — '+selectedFlight.data('to-last-time')+', <i class="fa fa-clock"></i> '+selectedFlight.data('to-duration')+'')
+                readyPopup.find('.from').html('<span><i class="fa fa-arrow-right"></i> '+selectedFlight.data('from-first-date')+',</span> \n' +
+                    ' '+selectedFlight.data('from-first-time')+' — '+selectedFlight.data('from-last-time')+', <i class="fa fa-clock"></i> '+selectedFlight.data('from-duration')+'')
+
                 AnswerActions.j('.button-block').show()
-                AnswerActions.j('.popup--flight.fligt-ready').fadeIn()
                 TripData.arrCity = 'Antalya'
-                resetMap(TripData.arrCity)
+                setTimeout(function () {
+                     AnswerActions.j('.popup--flight.fligt-ready').fadeIn()
+                    resetMap(TripData.arrCity)
+                }, 2000)
             }
         }
     ],
@@ -333,6 +347,7 @@ var AnswerActions = {
     }
 }
 var TripData = {
+    selectedFlight: -1,
     dateFrom: '',
     dateTo: '',
     depCode: 'FRA',
@@ -345,7 +360,7 @@ var SunnyBot = {
 
     listen: function(){
         RecordSpeech.startRecording()
-        //AnswerActions.findAnswer(['flights_to_location','datetime']).execute({default:'ffffffff'})
+//        AnswerActions.findAnswer(['flights_to_location','datetime']).execute({default:'ffffffff'})
     },
 
     processRequest: function () {
