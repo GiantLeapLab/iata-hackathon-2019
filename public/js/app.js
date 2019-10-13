@@ -210,10 +210,6 @@ var AnswerActions = {
                 setTimeout(function () {
                     showSelectedCountries()
                     SunnyBot.say(text2)
-                    selectedCities.forEach(function (city) {
-                        //console.log(city, TripData.dateFrom)
-                        addCityWeather(city, TripData.dateFrom)
-                    })
                 }, 2000)
             }
         },
@@ -226,6 +222,7 @@ var AnswerActions = {
                 var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
                 setTimeout(function () {
                     addCountryToVisited()
+                    showSelectedCities()
                     SunnyBot.say(text2)
                 }, 300)
             }
