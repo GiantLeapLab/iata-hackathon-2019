@@ -173,13 +173,18 @@ XML
                            $classOfService = $flightDates->filterXPath('descendant-or-self::ns2:ClassOfService/ns2:MarketingName')->text();
                            $duration = $flightDates->filterXPath('descendant-or-self::ns2:FlightDetail/ns2:FlightDuration/ns2:Value')->text();
 
+                           $depTimeParts = Helper::formatDateTime($depDate, $depTime);
+                           $arrTimeParts = Helper::formatDateTime($arrDate, $arrTime);
+
                            $flightData[$i][] = [
                                'depCode' => $depCode,
                                'depCity' => Helper::getCityNameByAirportCode($depCode),
-                               'depTime' => Helper::formatDateTime($depDate, $depTime),
+                               'depTime' => implode(' ', $depTimeParts),
+                               'depTimeParts' => $depTimeParts,
                                'arrCode' => $arrCode,
                                'arrCity' => Helper::getCityNameByAirportCode($arrCode),
-                               'arrTime' => Helper::formatDateTime($arrDate, $arrTime),
+                               'arrTime' => implode(' ', $arrTimeParts),
+                               'arrTimeParts' => $arrTimeParts,
                                'classOfService' => $classOfService,
                                'duration' => $duration
                            ];

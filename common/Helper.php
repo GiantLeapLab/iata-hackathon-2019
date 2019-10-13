@@ -47,10 +47,16 @@ class Helper {
     ];
 
     const DATE_FORMAT = 'M d, Y h:i a';
+    const DATE_PART_DATE = 'M d, Y';
+    const DATE_PART_TIME = ' h:i a';
 
     public static function formatDateTime($dateStr, $timeStr) {
-        return Carbon::createFromFormat('Y-m-d\Z H:i', $dateStr . ' ' . $timeStr)
-            ->format(self::DATE_FORMAT);
+        $parts['date'] = Carbon::createFromFormat('Y-m-d\Z H:i', $dateStr . ' ' . $timeStr)
+            ->format(self::DATE_PART_DATE);
+        $parts['time'] = Carbon::createFromFormat('Y-m-d\Z H:i', $dateStr . ' ' . $timeStr)
+            ->format(self::DATE_PART_TIME);
+
+        return $parts;
     }
 
     public static function formatDuration($durationStr) {
