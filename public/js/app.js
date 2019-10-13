@@ -8,7 +8,8 @@ var visitedCountries = {
     'Poland': {'Kraków':  'May 10, 2018 - May 13, 2018', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'July 12, 2018 - July 19, 2018' }, 
     'Lithuania': { 'Vilnius': 'May 2, 2019 - May 8, 2019'},
     'Czechia': { 'Prague': 'April 15, 2019 - April 23, 2019'},
-    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'}
+    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'},
+    'Germany': { 'Dresden': 'May 2, 2019 - May 8, 2019', 'Hamburg' : 'April 15, 2019 - April 23, 2019', 'Berlin' : 'April 15, 2019 - April 23, 2019', 'Munich' : 'April 15, 2019 - April 23, 2019', 'Frankfurt' : 'April 15, 2019 - April 23, 2019'}
 };
 var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
 var visitedColor = 'gray';
@@ -20,6 +21,7 @@ var featuresPlaces;
 
 // selected city names
 var selectedCities = [];
+var selectedCountries = ['Italy', 'Greece', 'Turkey'];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -111,19 +113,18 @@ $(document).ready(function () {
         /* Random color */
         if (feature.getProperty('visited') && !feature.getProperty('selected')) {
             if (feature.getProperty('unwanted')) {
+                var fillColor = '#e2e2e2';
+                var strokeColor = '#a7a7a7';
+            } else {
                 var fillColor = '#7eb300';
                 var strokeColor = '#537700';
-            } else {
-                var fillColor = 'green';
-                var strokeColor = 'green';
             }
             var iconUrl = "img/visited-city.png";
             var scaledSize = new google.maps.Size(16, 16);
         } else {
             //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
-            var fillColor = '#3cad4c';
-            var strokeColor = '#2c870c';
-            var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var fillColor = '#e96c3d';
+            var strokeColor = '#bd3400';
             var iconUrl = "img/suggested-city.png";
             var scaledSize = new google.maps.Size(32, 32)
         }
@@ -170,6 +171,7 @@ $(document).ready(function () {
 
     initBounds();
     //showVisitedCountries();
+   //makeVisitedCountriesUnwanted();
     showUserLocation();
     /*setTimeout(() => {
         makeVisitedCountriesUnwanted();
@@ -187,6 +189,11 @@ $(document).ready(function () {
     $('#controls').on('click', '#recordButton', function(){
         SunnyBot.listen()
     })
+
+    /*$('#controls').on('keydown', '#recordButton', function(){
+
+        SunnyBot.listen()
+    })*/
 
 });
 var AnswerActions = {
@@ -255,12 +262,13 @@ var AnswerActions = {
                 SunnyBot.say(this.text)
                 makeVisitedCountriesUnwanted()
                 var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
-                selectedCities.forEach(function (city) {
-                    //console.log(city, TripData.dateFrom)
-                    addCityWeather(city, TripData.dateFrom)
-                })
 
                 setTimeout(function () {
+                    showSelectedCountries()
+                    selectedCities.forEach(function (city) {
+                        //console.log(city, TripData.dateFrom)
+                        addCityWeather(city, TripData.dateFrom)
+                    })
                     SunnyBot.say(text2)
                 }, 700)
             }
@@ -276,8 +284,6 @@ var AnswerActions = {
                     makeVisitedCountriesUnwanted()
                     SunnyBot.say(text2)
                 }, 300)
-
-
             }
         },
         {
@@ -286,12 +292,9 @@ var AnswerActions = {
             text: 'Sure, here is some info from TripAdvisor',
             execute: function (params) {
                 SunnyBot.say(this.text)
-
                 setTimeout(function () {
-
-                }, 300)
-
-
+                    AnswerActions.j('.popup--antalya').show()
+                }, 200)
             }
         }
     ],

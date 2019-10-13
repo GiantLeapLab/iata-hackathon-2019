@@ -250,3 +250,52 @@ function showPastTrips(){
         })
     });
 }
+
+function showSelectedCountries(){
+        infoWindow.close();
+        clearBounds();
+        clearRoute();
+
+        featuresCountries.forEach(function (item) {
+            // Show selected country
+            if (selectedCountries.indexOf(item.getProperty('ADMIN')) !== -1) {
+                item.getGeometry().forEachLatLng(function (latLng) {
+                    addBound(latLng);
+                })
+                if (!item.getProperty('selected')) {
+                    item.setProperty('selected', true);
+
+                    // Show cities
+                    featuresPlaces.forEach(function (place) {
+                        if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
+                            place.setProperty('selected', true);
+                            addCityLabel(place);
+                            //addCityWeather(place.getProperty('name'));
+                        }
+                    })
+                }
+                // Hide unselected countries
+            } else {
+                item.setProperty('selected', false);
+                // Hide cities
+                featuresPlaces.forEach(function (place) {
+                    if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
+                        place.setProperty('selected', false);
+                        removeCityLabel(place);
+                        //removeCityWeather(place.getProperty('name'));
+                    }
+                })
+            }
+        })
+        console.log(selectedCities)
+
+        // Fit bounds
+        if (!bounds.isEmpty()) {
+            map.fitBounds(bounds.union(boundsUserLocation));
+        } else if (!boundsVisited.isEmpty()) {
+            map.fitBounds(boundsVisited.union(boundsUserLocation));
+        } else {
+            map.setCenter(new google.maps.LatLng(50, 10));
+            map.setZoom(5)
+        }
+}
