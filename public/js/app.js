@@ -247,7 +247,7 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 setTimeout(function () {
-                    AnswerActions.j('.popup--antalya').show()
+                    AnswerActions.j('.popup--antalya').fadeIn()
                 }, 200)
             }
         },
@@ -277,7 +277,7 @@ var AnswerActions = {
                         + "&depDate=" + TripData.dateFrom
                         + "&arrDate" + TripData.dateTo,
                         function() {
-                            AnswerActions.j('.popup--flight').show()
+                            AnswerActions.j('.popup--flight').fadeIn()
                             SunnyBot.say(text2)
                         })
                 }, 2000)
@@ -298,7 +298,7 @@ var AnswerActions = {
                     AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
 
                 })
-                AnswerActions.j('.popup--emissions').show()
+                AnswerActions.j('.popup--emissions').fadeIn()
                 SunnyBot.say(text2)
             }
         },
@@ -309,7 +309,6 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 AnswerActions.j('.button-block').show()
-                //todo reset extra data from map
                 resetMap(TripData.arrCity)
             }
         }
