@@ -8,7 +8,8 @@ var visitedCountries = {
     'Poland': {'Kraków':  'May 10, 2018 - May 13, 2018', 'Warsaw': 'June 2, 2019 - June 10, 2019' , 'Gdansk': 'July 12, 2018 - July 19, 2018' }, 
     'Lithuania': { 'Vilnius': 'May 2, 2019 - May 8, 2019'},
     'Czechia': { 'Prague': 'April 15, 2019 - April 23, 2019'},
-    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'}
+    'Slovenia': { 'Ljubljana': 'July 14, 2019 - July 22, 2019'},
+    'Germany': { 'Dresden': 'May 2, 2019 - May 8, 2019', 'Hamburg' : 'April 15, 2019 - April 23, 2019', 'Berlin' : 'April 15, 2019 - April 23, 2019', 'Munich' : 'April 15, 2019 - April 23, 2019', 'Frankfurt' : 'April 15, 2019 - April 23, 2019'}
 };
 var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
 var visitedColor = 'gray';
@@ -121,9 +122,8 @@ $(document).ready(function () {
             var scaledSize = new google.maps.Size(16, 16);
         } else {
             //var fillColor = '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6);
-            var fillColor = '#3cad4c';
-            var strokeColor = '#2c870c';
-            var iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var fillColor = '#e96c3d';
+            var strokeColor = '#bd3400';
             var iconUrl = "img/suggested-city.png";
             var scaledSize = new google.maps.Size(32, 32)
         }
