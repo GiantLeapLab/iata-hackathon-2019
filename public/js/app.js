@@ -205,7 +205,7 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 makeVisitedCountriesUnwanted()
-                var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
+                var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings.'
 
                 setTimeout(function () {
                     showSelectedCountries()
@@ -219,7 +219,7 @@ var AnswerActions = {
             text: 'Oh, sorry.',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
+                var text2 = 'I’ve selected a few attractive cities for you. Please check the map. I’ve prepared the weather forecast as well.'
                 setTimeout(function () {
                     addCountryToVisited()
                     setTimeout(function () {
