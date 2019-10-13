@@ -162,7 +162,8 @@ var AnswerActions = {
             text: 'Ok! Are you up to some sightseeing, basking in the sun, or maybe rural tourism?',
             execute: function (params) {
                 console.log(params)
-
+                AnswerActions.j('.date--separator').text('')
+                AnswerActions.j('.date--second-part').text('')
                 SunnyBot.say(this.text)
                 var dateFrom = false
                 var dateTo = false
@@ -256,9 +257,15 @@ var AnswerActions = {
             text: 'Ok. One minute please…',
             execute: function (params) {
                 SunnyBot.say(this.text)
+                AnswerActions.j('.date--separator').text(' / ')
+                AnswerActions.j('.date--second-part').text(' Antalya, Turkey ')
                 var text2 = 'There is a number of flights to Antalya for your dates. Please review and choose.'
-                var arrCode = getAirportByCity('Antalya')
-                TripData.arrCode = arrCode
+                var airport = getAirportByCity('Antalya')
+                buildRouteToUser({
+                    lat: airport.latitude,
+                    lng: airport.longitude
+                })
+                TripData.arrCode = airport.iata
                 AnswerActions.j( ".flights" ).load( "api.php?action=search&depCode="
                     + TripData.depCode
                     + "&arrCode="+TripData.arrCode
@@ -268,6 +275,28 @@ var AnswerActions = {
                         AnswerActions.j('.popup--flight').show()
                         SunnyBot.say(text2)
                 });
+            }
+        },
+        {
+            index: 8,
+            entity: 'book',
+            text: 'Ok, booking…',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+                var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                AnswerActions.j('.popup--emissions').show()
+                SunnyBot.say(text2)
+            }
+        },
+        {
+            index: 9,
+            entity: 'last_Step',
+            text: 'Thank you! Your booking is now confirmed!',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+                AnswerActions.j('.button-block').show()
+                //todo reset extra data from map
+
             }
         }
     ],
