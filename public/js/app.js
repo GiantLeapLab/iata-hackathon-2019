@@ -228,11 +228,17 @@ var AnswerActions = {
 
                 if ( params.datetime && params.datetime.length > 0) {
                     dateFrom = params.datetime[0].value
-                    var durationDay = params.duration && params.duration.length > 0 ? params.duration.value : 5
+                    var durationDay = 5
+
+                    if (params.duration && params.duration.length > 0) {
+
+                        durationDay = params.duration[0].value
+                    }
+
                     dateTo = moment(dateFrom).add(durationDay, 'days')
                 }
 
-                if (dateFrom != false && dateTo != false) {
+                if (dateFrom == false && dateTo == false) {
                     dateFrom = '2019-10-14'
                     dateTo = '2019-10-18'
                 }
@@ -271,12 +277,12 @@ var AnswerActions = {
 
                 setTimeout(function () {
                     showSelectedCountries()
+                    SunnyBot.say(text2)
                     selectedCities.forEach(function (city) {
                         //console.log(city, TripData.dateFrom)
                         addCityWeather(city, TripData.dateFrom)
                     })
-                    SunnyBot.say(text2)
-                }, 700)
+                }, 2000)
             }
         },
         {
@@ -287,7 +293,7 @@ var AnswerActions = {
                 SunnyBot.say(this.text)
                 var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
                 setTimeout(function () {
-                    makeVisitedCountriesUnwanted()
+                    addCountryToVisited()
                     SunnyBot.say(text2)
                 }, 300)
             }
@@ -348,6 +354,7 @@ var SunnyBot = {
         console.log('sunny parse start')
         console.log(response)
         if (response._text) {
+            this.j('.popup--theme').hide()
             this.displayToast(response._text, true)
             AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
         }
