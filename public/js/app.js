@@ -270,15 +270,18 @@ var AnswerActions = {
                 TripData.arrCity = 'Antalya'
                 /*TripData.dateFrom = '2019-10-15'
                 TripData.dateTo = '2019-10-20'*/
-                AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
-                    + TripData.depCode
-                    + "&arrCode="+TripData.arrCode
-                    + "&depDate=" + TripData.dateFrom
-                    + "&arrDate" + TripData.dateTo,
-                    function() {
-                        AnswerActions.j('.popup--flight').show()
-                        SunnyBot.say(text2)
-                });
+                setTimeout(function () {
+                    AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
+                        + TripData.depCode
+                        + "&arrCode="+TripData.arrCode
+                        + "&depDate=" + TripData.dateFrom
+                        + "&arrDate" + TripData.dateTo,
+                        function() {
+                            AnswerActions.j('.popup--flight').show()
+                            SunnyBot.say(text2)
+                        })
+                }, 2000)
+
             }
         },
         {
