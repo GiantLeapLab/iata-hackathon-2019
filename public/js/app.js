@@ -21,6 +21,7 @@ var featuresPlaces;
 
 // selected city names
 var selectedCities = [];
+var selectedCountries = ['Italy', 'Greece', 'Turkey'];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -169,7 +170,8 @@ $(document).ready(function () {
     });
 
     initBounds();
-    //showVisitedCountries();
+   // showVisitedCountries();
+   // makeVisitedCountriesUnwanted();
     showUserLocation();
     /*setTimeout(() => {
         makeVisitedCountriesUnwanted();
