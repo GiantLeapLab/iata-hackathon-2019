@@ -375,7 +375,7 @@ function resetMap(exceptCity){
         
     })
     
-    $('.toast-area, .top-bar').removeClass('active');
+    $('.toast-area').removeClass('active');
     console.log(weatherMarkers)
 
 }
