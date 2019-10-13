@@ -213,7 +213,7 @@ var AnswerActions = {
             text: 'Ok!',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                //makeVisitedCountriesUnwanted()
+                makeVisitedCountriesUnwanted()
                 var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
 
                 setTimeout(function () {
@@ -248,6 +248,16 @@ var AnswerActions = {
                 setTimeout(function () {
                     AnswerActions.j('.popup--antalya').show()
                 }, 200)
+            }
+        },
+        {
+            index: 7,
+            entity: 'flights_to_location',
+            text: 'Ok. One minute please…',
+            execute: function (params) {
+                SunnyBot.say(this.text)
+                var text2 = 'There is a number of flights to Antalya for your dates. Please review and choose.'
+
             }
         }
     ],
