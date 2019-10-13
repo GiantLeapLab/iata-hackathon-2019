@@ -82,7 +82,7 @@ $(document).ready(function () {
                 url: iconUrl,
                 scaledSize: scaledSize,
             },
-            visible: ((typeof feature.getProperty('selected') !== 'undefined' && feature.getProperty('selected')) || typeof feature.getProperty('alwaysVisible') !== 'undefined'),
+            visible: ((typeof feature.getProperty('selected') !== 'undefined' && feature.getProperty('selected')) || (typeof feature.getProperty('alwaysVisible') !== 'undefined' && feature.getProperty('alwaysVisible'))),
         });
     });
 
