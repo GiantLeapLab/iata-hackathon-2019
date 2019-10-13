@@ -8,10 +8,15 @@ function makeVisitedCountriesUnwanted() {
 
 function addCountryToVisited(){
     Object.keys(forgottenVisitedCountry).forEach(function(key){
-        visitedCountries[key] = forgottenVisitedCountry[key]
+        visitedCountries[key] = forgottenVisitedCountry[key];
+        var index = selectedCountries.indexOf(key);
+        if (index > -1) {
+            selectedCountries.splice(index, 1);
+        }
     })
     showVisitedCountries();
     makeVisitedCountriesUnwanted();
+    showSelectedCountries();
 }
 
 function showVisitedCountries() {
