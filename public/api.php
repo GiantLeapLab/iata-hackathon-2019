@@ -14,7 +14,7 @@ $actions = [
     ],
     'carbon' => [
         'class' => 'CarbonApi',
-        'method' => 'printCarbonEmission'
+        'method' => 'getCarbonEmission'
     ],
     'search' => [
         'class' => 'SunExpress_Api',
