@@ -28,6 +28,11 @@ class CarbonApi
             $res = [];
         }
 
+        return $res;
+    }
+
+    public static function printCarbonEmission(Client $client, $params) {
+        $res = self::getCarbonEmission($client, $params);
         include(TPL_PATH . '/co.php');
     }
 
