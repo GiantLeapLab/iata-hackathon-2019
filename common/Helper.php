@@ -46,9 +46,11 @@ class Helper {
         ]
     ];
 
+    const DATE_FORMAT = 'M d, Y h:i a';
+
     public static function formatDateTime($dateStr, $timeStr) {
         return Carbon::createFromFormat('Y-m-d\Z H:i', $dateStr . ' ' . $timeStr)
-            ->format('d.m.Y H:i');
+            ->format(self::DATE_FORMAT);
     }
 
     public static function formatDuration($durationStr) {

@@ -21,8 +21,8 @@
         } else {
             $toLastPoint = $toFirstPoint;
         }
-        $toDuration = \Carbon\Carbon::createFromFormat('d.m.Y H:i', $toLastPoint['arrTime'])
-            ->diffForHumans(\Carbon\Carbon::createFromFormat('d.m.Y H:i', $toFirstPoint['depTime']), true, true, 2);
+        $toDuration = \Carbon\Carbon::createFromFormat(\common\Helper::DATE_FORMAT, $toLastPoint['arrTime'])
+            ->diffForHumans(\Carbon\Carbon::createFromFormat(\common\Helper::DATE_FORMAT, $toFirstPoint['depTime']), true, true, 2);
 
         $fromFirstPoint = $flight['flightData'][1][0];
         $fromStopCount = count($flight['flightData'][1]);
@@ -32,8 +32,8 @@
         } else {
             $fromLastPoint = $fromFirstPoint;
         }
-        $fromDuration = \Carbon\Carbon::createFromFormat('d.m.Y H:i', $fromLastPoint['arrTime'])
-            ->diffForHumans(\Carbon\Carbon::createFromFormat('d.m.Y H:i', $fromFirstPoint['depTime']), true, true, 2);
+        $fromDuration = \Carbon\Carbon::createFromFormat(\common\Helper::DATE_FORMAT, $fromLastPoint['arrTime'])
+            ->diffForHumans(\Carbon\Carbon::createFromFormat(\common\Helper::DATE_FORMAT, $fromFirstPoint['depTime']), true, true, 2);
 
 
         ?>
