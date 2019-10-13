@@ -8,6 +8,9 @@ $(document).ready(function () {
     $('.flights').mCustomScrollbar({ theme: "minimal" });
   }
 
+  if($('.popup--antalya--content').length){
+    $('.popup--antalya--content').mCustomScrollbar({ theme: "minimal" });
+  }
 
   $('.sidebar').draggable();
   $('.popup--theme').draggable();

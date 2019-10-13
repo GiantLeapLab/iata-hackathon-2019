@@ -1,0 +1,36 @@
+.popup--antalya {
+    height: auto;
+    padding: 0;
+    border-radius: 0;
+
+    .popup--antalya--image {
+         width: 100%;
+
+         img {
+             width: 100%;
+         }
+     }
+     .popup--antalya--content {
+        padding: 20px;
+        background-color: #fff;
+        height: 300px;
+     }
+     .popup--antalya--title {
+         font-size: 32px;
+         margin-bottom: 20px;
+         font-weight: bold;
+
+     }
+     .popup--antalya--subtitle {
+         font-size: 20px;
+         margin-bottom: 24px;
+         color: orangered;
+     }
+     .popup--antalya--text {
+         font-size: 16px;
+         p  {
+             color: #212529;
+             margin-bottom: 10px;
+         }
+     }
+}
