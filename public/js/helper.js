@@ -198,7 +198,7 @@ function addPolyline(fromLatLng, toLatLng) {
 
         flightPath = new google.maps.Polyline({
             geodesic: true,
-            strokeColor: '#FF0000',
+            strokeColor: 'green',
             strokeOpacity: 0.0,
             strokeWeight: 4,
             icons: [{

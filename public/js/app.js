@@ -44,67 +44,8 @@ $(document).ready(function () {
     $('#start-button').click()
     showPastTrips();
 
-    $('#countrySelect').change(function () {
-
-        infoWindow.close();
-        clearBounds();
-        clearRoute();
-
-        var selectedCountries = $(this).val();
-        featuresCountries.forEach(function (item) {
-            // Show selected country
-            if (selectedCountries.indexOf(item.getProperty('ADMIN')) !== -1) {
-                item.getGeometry().forEachLatLng(function (latLng) {
-                    addBound(latLng);
-                })
-                if (!item.getProperty('selected')) {
-                    item.setProperty('selected', true);
-
-                    // Show cities
-                    featuresPlaces.forEach(function (place) {
-                        if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
-                            place.setProperty('selected', true);
-                            addCityLabel(place);
-                            //addCityWeather(place.getProperty('name'));
-                        }
-                    })
-                }
-                // Hide unselected countries
-            } else {
-                item.setProperty('selected', false);
-                // Hide cities
-                featuresPlaces.forEach(function (place) {
-                    if (place.getProperty('sov_a3') == item.getProperty('ISO_A3')) {
-                        place.setProperty('selected', false);
-                        removeCityLabel(place);
-                        //removeCityWeather(place.getProperty('name'));
-                    }
-                })
-            }
-        })
-        console.log(selectedCities)
-
-        // Fit bounds
-        if (!bounds.isEmpty()) {
-            map.fitBounds(bounds.union(boundsUserLocation));
-        } else if (!boundsVisited.isEmpty()) {
-            map.fitBounds(boundsVisited.union(boundsUserLocation));
-        } else {
-            map.setCenter(new google.maps.LatLng(50, 10));
-            map.setZoom(5)
-        }
-    });
-
     /* Load JSON countried to DATA layer */
     featuresCountries = map.data.addGeoJson(countries, { idPropertyName: "ADMIN" });
-
-    /* Get all countries names */
-    featuresCountries.forEach(function (feature) {
-        $('#countrySelect').append($('<option>', {
-            value: feature.getId(),
-            text: feature.getId()
-        }));
-    })
 
     /* Load JSON ccities to DATA layer */
     featuresPlaces = map.data.addGeoJson(places);
