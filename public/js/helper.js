@@ -86,7 +86,7 @@ function addCityWeather(city, date = '2019-10-14'){
                         position: new google.maps.LatLng(airport.latitude, airport.longitude),
                         map: map,
                         label: {
-                            color:'#FF0000',
+                            color:'#811d00',
                             fontWeight: 'bold',
                             text: data.forecast.highTemperatureValue > 0 ? '+' + data.forecast.highTemperatureValue : data.forecast.highTemperatureValue
                         },
