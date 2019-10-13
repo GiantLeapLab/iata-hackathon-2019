@@ -378,6 +378,8 @@ var SunnyBot = {
             this.j('.popup-force-hide').hide()
             if(response.entities && response.entities['location_info']) {
                 this.displayToast('show me some info about antalya.', true)
+            } else if (response.entities && response.entities['flights_to_location']) {
+                this.displayToast('i like it, let’s check what flights to antalya are available.', true)
             } else {
                 this.displayToast(response._text, true)
             }
