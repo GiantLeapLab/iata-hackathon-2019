@@ -205,15 +205,11 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
                 makeVisitedCountriesUnwanted()
-                var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
+                var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings.'
 
                 setTimeout(function () {
                     showSelectedCountries()
                     SunnyBot.say(text2)
-                    selectedCities.forEach(function (city) {
-                        //console.log(city, TripData.dateFrom)
-                        addCityWeather(city, TripData.dateFrom)
-                    })
                 }, 2000)
             }
         },
@@ -223,9 +219,12 @@ var AnswerActions = {
             text: 'Oh, sorry.',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
+                var text2 = 'I’ve selected a few attractive cities for you. Please check the map. I’ve prepared the weather forecast as well.'
                 setTimeout(function () {
                     addCountryToVisited()
+                    setTimeout(function () {
+                        showSelectedCities()
+                    }, 1000)
                     SunnyBot.say(text2)
                 }, 300)
             }
@@ -258,16 +257,16 @@ var AnswerActions = {
                 })
                 TripData.arrCode = airport.iata
                 TripData.arrCity = 'Antalya'
-                TripData.dateFrom = '2019-10-15'
-                TripData.dateTo = '2019-10-20'
+                /*TripData.dateFrom = '2019-10-15'
+                TripData.dateTo = '2019-10-20'*/
                 setTimeout(function () {
-                    AnswerActions.j( ".popup--flight" ).load( "/api.php?action=search&depCode="
+                    AnswerActions.j( "#flights-list" ).load( "/api.php?action=search&depCode="
                         + TripData.depCode
                         + "&arrCode="+TripData.arrCode
                         + "&depDate=" + TripData.dateFrom
                         + "&arrDate" + TripData.dateTo,
                         function() {
-                            AnswerActions.j('.popup--flight').fadeIn()
+                            AnswerActions.j('#flights-list').fadeIn()
                             SunnyBot.say(text2)
                         })
                 }, 2000)
@@ -281,20 +280,20 @@ var AnswerActions = {
             execute: function (params) {
                 SunnyBot.say(this.text)
 
-                AnswerActions.j('div.flight').not('div.flight[data-offer-number="1"]').addClass('inactive')
+                AnswerActions.j('#flights-list div.flight').not('div.flight[data-offer-number="1"]').addClass('inactive')
                 setTimeout(function () {
                     /*TripData.arrCode = 'AYT'
                 TripData.depCode = 'FRA'*/
-                    var text2 = 'Did you know that this flight would release 1 ton of carbon dioxide into the atmosphere? The airline participates in a program for … in … city to compensate . Would you like to donate 1 euro to cover your part in this flight ….'
+                    var text2 = 'Do you know that this flight will release 414 kilogram of carbon dioxide into the atmosphere? We cannot reduce it for this flight, but instead can help to lower emissions by investing into renovation of old manufactures. Would you mind adding 1 Euro to your ticket cost for this?'
                     AnswerActions.j.get('/api.php?action=carbon&depCode=' + TripData.depCode + '&arrCode='+TripData.arrCode + '&passengersAmount=1', function (res) {
                         AnswerActions.j('.button-block').show()
-                        AnswerActions.j('.popup--flight').hide()
+                        AnswerActions.j('#flights-list').hide()
                         AnswerActions.j('.popup--emissions--distance').text(res.distance_km.toFixed() + ' km distance')
-                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed(2) + ' kg')
+                        AnswerActions.j('.popup--emissions--weight').text(res.co2_kg_total.toFixed() + ' kg')
                         AnswerActions.j('.popup--emissions').fadeIn()
                     })
                     SunnyBot.say(text2)
-                }, 2000)
+                }, 3000)
 
             }
         },
@@ -324,7 +323,7 @@ var AnswerActions = {
         var result = this.defaultAnswer
         this.answers.forEach(function (answer) {
             if (entities.indexOf(answer.entity) != -1) {
-                console.log('find answer', answer)
+                //console.log('find answer', answer)
                 result = Object.assign({}, answer)
             }
         })
@@ -346,7 +345,7 @@ var SunnyBot = {
 
     listen: function(){
         RecordSpeech.startRecording()
-        //AnswerActions.findAnswer(['last_step','datetime']).execute({default:'ffffffff'})
+        //AnswerActions.findAnswer(['flights_to_location','datetime']).execute({default:'ffffffff'})
     },
 
     processRequest: function () {
@@ -359,7 +358,12 @@ var SunnyBot = {
         console.log(response)
         if (response._text) {
             this.j('.popup-force-hide').hide()
-            this.displayToast(response._text, true)
+            if(response.entities && response.entities['location_info']) {
+                this.displayToast('show me some info about antalya.', true)
+            } else {
+                this.displayToast(response._text, true)
+            }
+
             AnswerActions.findAnswer(Object.keys(response.entities)).execute(response.entities)
         }
     },
