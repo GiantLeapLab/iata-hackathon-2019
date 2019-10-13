@@ -41,7 +41,7 @@ $(document).ready(function () {
     $('#start-button').click(function () {
         $(this).closest('.start-page').hide();
     })
-    $('#start-button').click()
+
     showPastTrips();
 
     /* Load JSON countried to DATA layer */
