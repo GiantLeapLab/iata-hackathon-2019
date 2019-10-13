@@ -21,7 +21,7 @@ var featuresPlaces;
 
 // selected city names
 var selectedCities = [];
-var selectedCountries = ['Italy', 'Greece', 'Turkey'];
+var selectedCountries = ['Italy', 'Greece', 'Turkey', 'Croatia'];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
