@@ -12,7 +12,6 @@ var visitedCountries = {
     'Germany': { 'Dresden': 'May 2, 2019 - May 8, 2019', 'Hamburg' : 'April 15, 2019 - April 23, 2019', 'Berlin' : 'April 15, 2019 - April 23, 2019', 'Munich' : 'April 15, 2019 - April 23, 2019', 'Frankfurt' : 'April 15, 2019 - April 23, 2019'}
 };
 var forgottenVisitedCountry = {'Italy': { 'Rome': 'August 3, 2018 - August 10, 2018', 'Naples': 'October 1, 2019 - October 10, 2019'}}
-var visitedColor = 'gray';
 var labels = [];
 var weatherMarkers = [];
 var flightPath;
@@ -114,15 +113,6 @@ $(document).ready(function () {
     //showVisitedCountries();
    //makeVisitedCountriesUnwanted();
     showUserLocation();
-    /*setTimeout(() => {
-        makeVisitedCountriesUnwanted();
-    }, 4000);
-
-    setTimeout(() => {
-        addCountryToVisited();
-    }, 6000);*/
-
-
 
     $('#controls').on('click', '#stopButton', function(){
         SunnyBot.processRequest()
