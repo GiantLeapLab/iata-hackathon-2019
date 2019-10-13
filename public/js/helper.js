@@ -42,14 +42,14 @@ function addCityLabel(place) {
         fontSize: 16,
         align: 'center'
     });
-    labels[place.getProperty('geonameid')] = mapLabel;
+    labels[place.getProperty('name')] = mapLabel;
     selectedCities.push(place.getProperty('name'));
 }
 
 function removeCityLabel(place) {
-    if (typeof labels[place.getProperty('geonameid')] !== 'undefined') {
-        labels[place.getProperty('geonameid')].setMap(null);
-        delete labels[place.getProperty('geonameid')];
+    if (typeof labels[place.getProperty('name')] !== 'undefined') {
+        labels[place.getProperty('name')].setMap(null);
+        delete labels[place.getProperty('name')];
         var index = selectedCities.indexOf(place.getProperty('name'));
         if (index > -1) {
             selectedCities.splice(index, 1);
