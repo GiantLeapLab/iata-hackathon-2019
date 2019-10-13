@@ -222,7 +222,9 @@ var AnswerActions = {
                 var text2 = 'I’ve selected a few attractive cities for you. Please check the map.'
                 setTimeout(function () {
                     addCountryToVisited()
-                    showSelectedCities()
+                    setTimeout(function () {
+                        showSelectedCities()
+                    }, 1000)
                     SunnyBot.say(text2)
                 }, 300)
             }
@@ -258,7 +260,7 @@ var AnswerActions = {
                 /*TripData.dateFrom = '2019-10-15'
                 TripData.dateTo = '2019-10-20'*/
                 setTimeout(function () {
-                    AnswerActions.j( "#flights-list" ).load( "/public/api.php?action=search&depCode="
+                    AnswerActions.j( "#flights-list" ).load( "/api.php?action=search&depCode="
                         + TripData.depCode
                         + "&arrCode="+TripData.arrCode
                         + "&depDate=" + TripData.dateFrom
