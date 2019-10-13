@@ -369,12 +369,16 @@ function resetMap(exceptCity){
                         place.setProperty('selected', false);
                         removeCityLabel(place);
                     }
+                }else{
+                    place.getGeometry().forEachLatLng(function (latLng) {
+                        boundsUserLocation.extend(latLng);
+                    })
                 }
                 removeCityWeather(place.getProperty('name'));
             })
         
     })
-    
+    map.fitBounds(boundsUserLocation);
     $('.toast-area').removeClass('active');
     console.log(weatherMarkers)
 
