@@ -133,7 +133,11 @@ XML
 
        $crawler = new Crawler();
        $crawler->addXmlContent($response->getBody()->getContents());
-       $data = [];
+       $data = [
+           'depCityMain' => Helper::getCityNameByAirportCode($depCode, true),
+           'arrCityMain' => Helper::getCityNameByAirportCode($arrCode, true),
+           'flights' => []
+       ];
 
        $dataListData = $crawler->filterXPath('descendant-or-self::soap:Body/ns2:AirShoppingRS/ns2:DataLists/ns2:FlightSegmentList');
 
@@ -168,11 +172,13 @@ XML
 
                            $flightData[$i][] = [
                                'depCode' => $depCode,
+                               'depCity' => Helper::getCityNameByAirportCode($depCode),
                                'depTime' => Helper::formatDateTime($depDate, $depTime),
                                'arrCode' => $arrCode,
+                               'arrCity' => Helper::getCityNameByAirportCode($arrCode),
                                'arrTime' => Helper::formatDateTime($arrDate, $arrTime),
                                'classOfService' => $classOfService,
-                               'duration' => Helper::formatDuration($duration)
+                               'duration' => $duration
                            ];
                        }
 
@@ -180,7 +186,7 @@ XML
 
                $itemData = ['cost' => $cost, 'flightData' => $flightData];
 
-               array_push($data, $itemData);
+               array_push($data['flights'], $itemData);
            });
 
        });
