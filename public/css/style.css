@@ -41,7 +41,7 @@ body {
     position: relative;
 }
 #controls {
-    display: flex;
+    display: none;
     /* margin-top: 2rem; */
 }
 button {
