@@ -9,6 +9,10 @@ function makeVisitedCountriesUnwanted() {
 function addCountryToVisited(){
     Object.keys(forgottenVisitedCountry).forEach(function(key){
         visitedCountries[key] = forgottenVisitedCountry[key];
+        visitedCountries[key]['Milan'] = 'May 2, 2019 - May 8, 2019';
+        visitedCountries[key]['Palermo'] = 'May 2, 2019 - May 8, 2019';
+        visitedCountries[key]['Venice'] = 'May 2, 2019 - May 8, 2019';
+        
         var index = selectedCountries.indexOf(key);
         if (index > -1) {
             selectedCountries.splice(index, 1);
