@@ -37,6 +37,7 @@ function showVisitedCountries() {
             })
         }
     })
+    map.fitBounds(boundsVisited.union(boundsUserLocation));
 }
 
 function addCityLabel(place) {
@@ -151,7 +152,7 @@ function showUserLocation(){
             map.fitBounds(boundsVisited.union(boundsUserLocation));
         }else{
             map.setCenter(userLocation);
-            map.setZoom(2);
+            map.setZoom(3);
         }
     }, function () {
         handleLocationError(true, infoWindow, map.getCenter());

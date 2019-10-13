@@ -266,7 +266,7 @@ var AnswerActions = {
             text: 'Ok!',
             execute: function (params) {
                 SunnyBot.say(this.text)
-                makeVisitedCountriesUnwanted()
+                //makeVisitedCountriesUnwanted()
                 var text2 = 'Have a look at the south coast. Italy, Greece,  Croatia, and Turkey have high tourist rating and famous historical sightseeings. I’ve prepared the weather forecast as well.'
 
                 setTimeout(function () {
